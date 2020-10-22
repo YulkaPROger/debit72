@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile_vision_jamel/flutter_mobile_vision_jamel.dart';
 
 class SearchAvto extends StatefulWidget {
   @override
@@ -12,21 +11,9 @@ class _SearchAvtoState extends State<SearchAvto> {
   @override
   void initState() {
     super.initState();
-    FlutterMobileVision.start().then((value) => isInizilized = true);
   }
 
-  void _startScan() async {
-    List<OcrText> list = List();
-    try {
-      list =
-          await FlutterMobileVision.read(waitTap: true, fps: 5, multiple: true);
-      for (OcrText text in list) {
-        print(text.value);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  void _startScan() async {}
 
   @override
   Widget build(BuildContext context) {
