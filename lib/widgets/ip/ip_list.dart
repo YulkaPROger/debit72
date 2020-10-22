@@ -49,7 +49,7 @@ class _IPListState extends State<IPList> {
                       var id = state.loadedData[index].link.toString();
                       provider.setNumID(numForSetNumID: id);
                       print(state.loadedData[index].link);
-                      //Navigator.of(context).pushNamed('/ipDetail');
+                      Navigator.of(context).pushNamed('ipDetail');
                     },
                     padding: const EdgeInsets.all(12.0),
                     child: Column(

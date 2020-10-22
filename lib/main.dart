@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 
 import 'models/theme_model.dart';
 import 'pages/home.dart';
+import 'pages/ip_detail.dart';
 import 'pages/ip_page.dart';
 import 'pages/nav_bar.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
               'home_page': (context) => HomePage(),
               // '/jow': (context) => MyJOW(),
               'ip': (context) => IPScreen(),
-              // '/ipDetail': (context) => IPDetail(),
+              'ipDetail': (context) => IPDetail(),
               // '/avto': (context) => Avto(),
             },
             darkTheme: ThemeData.dark(),
