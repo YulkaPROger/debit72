@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 
 import 'models/theme_model.dart';
+import 'pages/avto.dart';
 import 'pages/home.dart';
 import 'pages/ip_detail.dart';
 import 'pages/ip_page.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
               // '/jow': (context) => MyJOW(),
               'ip': (context) => IPScreen(),
               'ipDetail': (context) => IPDetail(),
-              // '/avto': (context) => Avto(),
+              'avto': (context) => Avto(),
             },
             darkTheme: ThemeData.dark(),
             debugShowCheckedModeBanner: false,

@@ -16,6 +16,12 @@ class HomePage extends StatelessWidget {
             },
             child: Text("Исполнительное производство"),
           ),
+          RaisedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, 'avto');
+            },
+            child: Text("Автомобили"),
+          ),
           Previous(),
         ],
       )),
