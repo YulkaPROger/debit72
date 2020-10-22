@@ -36,10 +36,10 @@ class MyApp extends StatelessWidget {
         create: (BuildContext context) => ThemeModel(),
         child: Consumer<ThemeModel>(builder: (context, model, __) {
           return MaterialApp(
-            initialRoute: '/',
-            routes: {
+            initialRoute: 'home_page',
+            routes: <String, WidgetBuilder>{
               // When navigating to the "/" route, build the FirstScreen widget.
-              '/': (context) => HomePage(),
+              'home_page': (context) => HomePage(),
               // '/jow': (context) => MyJOW(),
               // '/ip': (context) => IPScreen(),
               // '/ipDetail': (context) => IPDetail(),
