@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 
 import 'models/theme_model.dart';
 import 'pages/home.dart';
+import 'pages/ip_page.dart';
 import 'pages/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,16 +42,10 @@ class MyApp extends StatelessWidget {
               // When navigating to the "/" route, build the FirstScreen widget.
               'home_page': (context) => HomePage(),
               // '/jow': (context) => MyJOW(),
-              // '/ip': (context) => IPScreen(),
+              'ip': (context) => IPScreen(),
               // '/ipDetail': (context) => IPDetail(),
               // '/avto': (context) => Avto(),
             },
-            // initialRoute: SPLASH_SCREEN ,
-            // routes: <String, WidgetBuilder>{
-            //   MAIN_UI: (BuildContext context) => MainUI(model),
-            //   SPLASH_SCREEN: (BuildContext context) => AnimatedSplashScreen(),
-            //   SETTINGS_SCREEN:(BuildContext context) => Setting(),
-            // },
             darkTheme: ThemeData.dark(),
             debugShowCheckedModeBanner: false,
             theme: ThemeData(

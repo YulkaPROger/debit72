@@ -7,7 +7,18 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavBar(),
-      body: SafeArea(child: Previous()),
+      body: SafeArea(
+          child: Column(
+        children: [
+          RaisedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, 'ip');
+            },
+            child: Text("Исполнительное производство"),
+          ),
+          Previous(),
+        ],
+      )),
     );
   }
 }
