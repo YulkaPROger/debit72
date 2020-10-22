@@ -35,6 +35,14 @@ class _AvtoState extends State<Avto> {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            IconButton(
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.amber,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('search_avto');
+                }),
             RowResultsAvto(),
             ActionButtonAvto(),
           ],

@@ -18,7 +18,21 @@ class InitialCubit extends Cubit<InitialState> {
   InitialCubit({this.repository}) : super(InitialInitial());
 
   List<IP> fetchingIP;
-  List<AvtoList> fetchingAvtoList;
+
+  // Future<void> loadingIP() async {
+  //   try {
+  //     emit(IpLoading());
+  //     if (fetchingIP != null) {
+  //       print("Данные загружены ранее");
+  //       emit(IpLoaded(loadedData: fetchingIP));
+  //     } else {
+  //       fetchIP();
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //     emit(IpError());
+  //   }
+  // }
 
   Future<void> fetchIP() async {
     try {
@@ -64,12 +78,12 @@ class InitialCubit extends Cubit<InitialState> {
       emit(IpDetailLoading());
       final List<IPDetail> _loadedIP =
           await repositoryIPDetail.getDetailIpFromID();
-      print("## cubit ============ _loadedIP");
-      print(_loadedIP);
-      print(_loadedIP.runtimeType);
+      // print("## cubit ============ _loadedIP");
+      // print(_loadedIP);
+      // print(_loadedIP.runtimeType);
       emit(IpDetailLoaded(loadedDataIP: _loadedIP));
     } catch (e) {
-      print(e);
+      // print(e);
       emit(IpDetailError());
     }
   }
@@ -89,6 +103,21 @@ class InitialCubit extends Cubit<InitialState> {
     }
   }
 
+  List<AvtoList> fetchingAvtoList;
+
+  // Future<void> loadingAvtoList() async {
+  //   try {
+  //     emit(AvtoLoading());
+  //     if (fetchingAvtoList != null) {
+  //       emit(AvtoLoaded(loadedDataInfo: fetchingAvtoList));
+  //     } else
+  //       fetchAvtoList();
+  //   } catch (e) {
+  //     // print(e);
+  //     emit(AvtoError());
+  //   }
+  // }
+
   Future<void> fetchAvtoList() async {
     RepositoryAvtoList repositoryAvto = RepositoryAvtoList();
     try {
@@ -96,12 +125,12 @@ class InitialCubit extends Cubit<InitialState> {
       final List<AvtoList> _loadedInfo = await repositoryAvto
           .getAvtoList()
           .then((value) => fetchingAvtoList = value);
-      print("## cubit ============ _loadedInfo");
-      print(_loadedInfo);
-      print(_loadedInfo.runtimeType);
+      // print("## cubit ============ _loadedInfo");
+      // print(_loadedInfo);
+      // print(_loadedInfo.runtimeType);
       emit(AvtoLoaded(loadedDataInfo: _loadedInfo));
     } catch (e) {
-      print(e);
+      // print(e);
       emit(AvtoError());
     }
   }
@@ -124,6 +153,18 @@ class InitialCubit extends Cubit<InitialState> {
   }
 
   List<JOW> fetchingJow;
+
+  // Future<void> loadingJOWs() async {
+  //   try {
+  //     emit(JOWLoading());
+  //     if (fetchingJow != null) {
+  //       emit(JOWLoaded(loadedDataInfo: fetchingJow));
+  //     } else
+  //       fetchJOWs();
+  //   } catch (e) {
+  //     emit(JOWError());
+  //   }
+  // }
 
   Future<void> fetchJOWs() async {
     RepositoryJOW repositoryJOW = RepositoryJOW();

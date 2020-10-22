@@ -1,3 +1,4 @@
+import 'package:debit72/pages/search_avto.dart';
 import 'package:flutter/services.dart';
 
 import 'models/theme_model.dart';
@@ -6,7 +7,6 @@ import 'pages/home.dart';
 import 'pages/ip_detail.dart';
 import 'pages/ip_page.dart';
 import 'pages/jow_page.dart';
-import 'pages/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +29,9 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final jow = MyJOW();
+  final ip = IPScreen();
+  final avto = Avto();
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -48,6 +51,7 @@ class MyApp extends StatelessWidget {
               'ip': (context) => IPScreen(),
               'ipDetail': (context) => IPDetail(),
               'avto': (context) => Avto(),
+              'search_avto': (context) => SearchAvto(),
             },
             darkTheme: ThemeData.dark(),
             debugShowCheckedModeBanner: false,
