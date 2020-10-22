@@ -1,18 +1,19 @@
 import '../cubit/initial/initial_cubit.dart';
+import '../pages/nav_bar.dart';
 import '../services/repo.dart';
-import '../widgets/ip/action_button_ip.dart';
-import '../widgets/ip/ip_list.dart';
-import '../widgets/ip/row_results_ip.dart';
-import '../widgets/ip/search_field_ip.dart';
+import '../widgets/jow/action_buttons.dart';
+import '../widgets/jow/jow_list.dart';
+import '../widgets/jow/row_results.dart';
+import '../widgets/jow/search_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class IPScreen extends StatefulWidget {
+class MyJOW extends StatefulWidget {
   @override
-  _IPScreenState createState() => _IPScreenState();
+  _MyJOWState createState() => _MyJOWState();
 }
 
-class _IPScreenState extends State<IPScreen> {
+class _MyJOWState extends State<MyJOW> {
   final RepositoryIP repository = RepositoryIP();
 
   @override
@@ -22,24 +23,22 @@ class _IPScreenState extends State<IPScreen> {
       create: (context) => InitialCubit(repository: repository),
       child: Scaffold(
         appBar: AppBar(
-          title: SearchFieldIP(),
+          title: SearchField(),
         ),
         key: _scaffoldKey,
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            RowResultsIP(),
-            ActionButtonIP(),
+            RowResults(),
+            ActionButton(),
           ],
         ),
         body: SafeArea(
           child: Container(
-            child: Column(
-              children: [
-                Expanded(child: IPList()),
-              ],
-            ),
+            child: Column(children: [
+              Expanded(child: JOWList()),
+            ]),
           ),
         ),
       ),

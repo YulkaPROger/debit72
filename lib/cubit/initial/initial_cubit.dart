@@ -1,11 +1,14 @@
 import '../../models/avto_list.dart';
 import '../../models/ip.dart';
 import '../../models/ip_detail.dart';
+import '../../models/judicial_order_work.dart';
 import '../../models/previous_info.dart';
 import '../../services/repo.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+
+import '../../services/repo.dart';
 
 part 'initial_state.dart';
 
@@ -118,6 +121,43 @@ class InitialCubit extends Cubit<InitialState> {
     });
 
     emit(AvtoLoaded(loadedDataInfo: searchAvto));
+  }
+
+  List<JOW> fetchingJow;
+
+  Future<void> fetchJOWs() async {
+    RepositoryJOW repositoryJOW = RepositoryJOW();
+    try {
+      emit(JOWLoading());
+      final List<JOW> _loadedLOW = await repositoryJOW
+          .getAllJudicalOrders()
+          .then((value) => fetchingJow = value);
+      emit(JOWLoaded(loadedDataInfo: _loadedLOW));
+    } catch (e) {
+      emit(JOWError());
+    }
+  }
+
+  void searchListJOW({String searchData}) async {
+    emit(JOWLoading());
+
+    List<JOW> searchLOW = List<JOW>();
+    String data = searchData.toLowerCase();
+
+    fetchingJow.forEach((element) {
+      if (element.date.toLowerCase().contains(data) ||
+          element.court.toLowerCase().contains(data) ||
+          element.hearingCourt.toLowerCase().contains(data) ||
+          element.claimant.toLowerCase().contains(data) ||
+          element.defendants.toLowerCase().contains(data) ||
+          element.street.toLowerCase().contains(data) ||
+          element.house.toLowerCase().contains(data) ||
+          element.apartment.toLowerCase().contains(data)) {
+        searchLOW.add(element);
+      }
+    });
+
+    emit(JOWLoaded(loadedDataInfo: searchLOW));
   }
 }
 

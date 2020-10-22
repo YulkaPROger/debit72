@@ -49,3 +49,15 @@ class AvtoLoaded extends InitialState {
 }
 
 class AvtoError extends InitialState {}
+
+//Стэйты для информации на главном экране
+class InitialJOW extends InitialState {}
+
+class JOWLoading extends InitialState {}
+
+class JOWLoaded extends InitialState {
+  List<JOW> loadedDataInfo;
+  JOWLoaded({@required this.loadedDataInfo}) : assert(loadedDataInfo != null);
+}
+
+class JOWError extends InitialState {}

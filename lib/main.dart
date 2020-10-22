@@ -5,6 +5,7 @@ import 'pages/avto.dart';
 import 'pages/home.dart';
 import 'pages/ip_detail.dart';
 import 'pages/ip_page.dart';
+import 'pages/jow_page.dart';
 import 'pages/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
             routes: <String, WidgetBuilder>{
               // When navigating to the "/" route, build the FirstScreen widget.
               'home_page': (context) => HomePage(),
-              // '/jow': (context) => MyJOW(),
+              'jow': (context) => MyJOW(),
               'ip': (context) => IPScreen(),
               'ipDetail': (context) => IPDetail(),
               'avto': (context) => Avto(),
