@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "951010451841",
+    "firebase_url": "https://debit72-11b98.firebaseio.com",
+    "project_id": "debit72-11b98",
+    "storage_bucket": "debit72-11b98.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951010451841:android:1c1d77067d269369e34880",
+        "android_client_info": {
+          "package_name": "com.example.debit72"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951010451841-3m9l7fe6ioip44abm1n52t3v8smoptgi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbdt121C6ITDeNwVurBVp7xZ3z2CXgFKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951010451841-3m9l7fe6ioip44abm1n52t3v8smoptgi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
