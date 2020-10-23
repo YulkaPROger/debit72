@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>951010451841-2bvk1gb1nacm0ctls66i57snm7q0p9qq.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.951010451841-2bvk1gb1nacm0ctls66i57snm7q0p9qq</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAwQXLLGEo_KxHOydb6JaCpBfRh_rcizz4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>951010451841</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.debit72</string>
+	<key>PROJECT_ID</key>
+	<string>debit72-11b98</string>
+	<key>STORAGE_BUCKET</key>
+	<string>debit72-11b98.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:951010451841:ios:6153c6182110de5fe34880</string>
+	<key>DATABASE_URL</key>
+	<string>https://debit72-11b98.firebaseio.com</string>
+</dict>
+</plist>
