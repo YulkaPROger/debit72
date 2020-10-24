@@ -23,7 +23,7 @@ class Api {
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
       String body = utf8.decode(response.bodyBytes);
-      print(body);
+      // print(body);
       final List<dynamic> infoJSON = json.decode(body);
       return infoJSON.map((json) => Info.fromJson(json)).toList();
     } else {
@@ -43,7 +43,7 @@ class Api {
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
       String body = utf8.decode(response.bodyBytes);
-      print(body);
+      // print(body);
       final List<dynamic> ipJSON = json.decode(body);
       return ipJSON.map((json) => IP.fromJson(json)).toList();
     } else {
@@ -62,7 +62,7 @@ class Api {
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
       String body = utf8.decode(response.bodyBytes);
-      print(body);
+      // print(body);
       final List<dynamic> judicalJSON = json.decode(body);
       return judicalJSON.map((json) => JOW.fromJson(json)).toList();
     } else {
@@ -108,11 +108,11 @@ class Api {
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
       String body = utf8.decode(response.bodyBytes);
-      print("body");
-      print(body);
+      // print("body");
+      // print(body);
       final List<dynamic> avtoList = json.decode(body);
-      print("ipDetail");
-      print(avtoList);
+      // print("ipDetail");
+      // print(avtoList);
       // print("${ipDetail[0]}");
       // print(ipDetail[0]);
 
