@@ -28,6 +28,12 @@ class HomePage extends StatelessWidget {
             },
             child: Text("Судебно-приказная работа"),
           ),
+          RaisedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, 'search_avto');
+            },
+            child: Text("Поиск авто"),
+          ),
           Previous(),
         ],
       )),
