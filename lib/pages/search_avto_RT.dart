@@ -13,6 +13,7 @@ class _RealTimeSearchAvtoState extends State<RealTimeSearchAvto> {
   List<String> data = [];
   final _scanKey = GlobalKey<CameraMlVisionState>();
   BarcodeDetector detector = FirebaseVision.instance.barcodeDetector();
+  TextRecognizer textRecognizer = FirebaseVision.instance.textRecognizer();
 
   @override
   Widget build(BuildContext context) {
@@ -70,13 +71,6 @@ class _RealTimeSearchAvtoState extends State<RealTimeSearchAvto> {
                       },
                       child: Text('Start/Pause camera'),
                     ),
-                    RaisedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => _SecondScreen()));
-                      },
-                      child: Text('Push new route'),
-                    ),
                   ],
                 ),
               ],
@@ -84,23 +78,6 @@ class _RealTimeSearchAvtoState extends State<RealTimeSearchAvto> {
           ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
-
-class _SecondScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: RaisedButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => _SecondScreen(),
-          ));
-        },
-        child: Text('Push new route'),
-      ),
     );
   }
 }
