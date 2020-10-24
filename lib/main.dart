@@ -1,4 +1,5 @@
-import 'package:debit72/pages/search_avto.dart';
+import 'pages/search_avto.dart';
+import 'pages/search_avto_RT.dart';
 import 'package:flutter/services.dart';
 
 import 'models/theme_model.dart';
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
               'ipDetail': (context) => IPDetail(),
               'avto': (context) => Avto(),
               'search_avto': (context) => SearchAvto(),
+              'search_avto_real_time': (context) => RealTimeSearchAvto(),
             },
             darkTheme: ThemeData.dark(),
             debugShowCheckedModeBanner: false,

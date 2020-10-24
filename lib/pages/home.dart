@@ -34,6 +34,12 @@ class HomePage extends StatelessWidget {
             },
             child: Text("Поиск авто"),
           ),
+          RaisedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, 'search_avto_real_time');
+            },
+            child: Text("Поиск авто real-time"),
+          ),
           Previous(),
         ],
       )),
