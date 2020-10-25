@@ -17,18 +17,9 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
   Detector _currentDetector = Detector.text;
   bool _isDetecting = false;
   CameraLensDirection _direction = CameraLensDirection.back;
+  String resultScan;
 
-  final BarcodeDetector _barcodeDetector =
-      FirebaseVision.instance.barcodeDetector();
-  final FaceDetector _faceDetector = FirebaseVision.instance.faceDetector();
-  final ImageLabeler _imageLabeler = FirebaseVision.instance.imageLabeler();
-  final ImageLabeler _cloudImageLabeler =
-      FirebaseVision.instance.cloudImageLabeler();
   final TextRecognizer _recognizer = FirebaseVision.instance.textRecognizer();
-  final TextRecognizer _cloudRecognizer =
-      FirebaseVision.instance.cloudTextRecognizer();
-  final DocumentTextRecognizer _cloudDocumentRecognizer =
-      FirebaseVision.instance.cloudDocumentTextRecognizer();
 
   @override
   void initState() {
@@ -61,6 +52,25 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
         (dynamic results) {
           if (_currentDetector == null) return;
           setState(() {
+            String text = results.text;
+            for (TextBlock block in results.blocks) {
+              final Rect boundingBox = block.boundingBox;
+              final List<Offset> cornerPoints = block.cornerPoints;
+
+              final String text = block.text;
+              resultScan = text;
+              print("block.text===========================$text");
+              final List<RecognizedLanguage> languages =
+                  block.recognizedLanguages;
+
+              // for (TextLine line in block.lines) {
+              //   print(
+              //       "line===================================================$line");
+              //   for (TextElement element in line.elements) {
+              //     print("element=================================$element");
+              //   }
+              // }
+            }
             _scanResults = results;
           });
         },
@@ -69,24 +79,7 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
   }
 
   Future<dynamic> Function(FirebaseVisionImage image) _getDetectionMethod() {
-    switch (_currentDetector) {
-      case Detector.text:
-        return _recognizer.processImage;
-      case Detector.cloudText:
-        return _cloudRecognizer.processImage;
-      case Detector.cloudDocumentText:
-        return _cloudDocumentRecognizer.processImage;
-      case Detector.barcode:
-        return _barcodeDetector.detectInImage;
-      case Detector.label:
-        return _imageLabeler.processImage;
-      case Detector.cloudLabel:
-        return _cloudImageLabeler.processImage;
-      case Detector.face:
-        return _faceDetector.processImage;
-    }
-
-    return null;
+    return _recognizer.processImage;
   }
 
   Widget _buildResults() {
@@ -105,30 +98,7 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
       _camera.value.previewSize.width,
     );
 
-    switch (_currentDetector) {
-      case Detector.barcode:
-        if (_scanResults is! List<Barcode>) return noResultsText;
-        painter = BarcodeDetectorPainter(imageSize, _scanResults);
-        break;
-      case Detector.face:
-        if (_scanResults is! List<Face>) return noResultsText;
-        painter = FaceDetectorPainter(imageSize, _scanResults);
-        break;
-      case Detector.label:
-        if (_scanResults is! List<ImageLabel>) return noResultsText;
-        painter = LabelDetectorPainter(imageSize, _scanResults);
-        break;
-      case Detector.cloudLabel:
-        if (_scanResults is! List<ImageLabel>) return noResultsText;
-        painter = LabelDetectorPainter(imageSize, _scanResults);
-        break;
-      default:
-        assert(_currentDetector == Detector.text ||
-            _currentDetector == Detector.cloudText);
-        if (_scanResults is! VisionText) return noResultsText;
-        painter = TextDetectorPainter(imageSize, _scanResults);
-    }
-
+    painter = TextDetectorPainter(imageSize, _scanResults);
     return CustomPaint(
       painter: painter,
     );
@@ -152,6 +122,9 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
               children: <Widget>[
                 CameraPreview(_camera),
                 _buildResults(),
+                Container(
+                  child: Text("$resultScan"),
+                )
               ],
             ),
     );
@@ -177,46 +150,7 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ML Vision Example'),
-        actions: <Widget>[
-          PopupMenuButton<Detector>(
-            onSelected: (Detector result) {
-              _currentDetector = result;
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<Detector>>[
-              const PopupMenuItem<Detector>(
-                child: Text('Detect Barcode'),
-                value: Detector.barcode,
-              ),
-              const PopupMenuItem<Detector>(
-                child: Text('Detect Face'),
-                value: Detector.face,
-              ),
-              const PopupMenuItem<Detector>(
-                child: Text('Detect Label'),
-                value: Detector.label,
-              ),
-              const PopupMenuItem<Detector>(
-                child: Text('Detect Cloud Label'),
-                value: Detector.cloudLabel,
-              ),
-              const PopupMenuItem<Detector>(
-                child: Text('Detect Text'),
-                value: Detector.text,
-              ),
-              const PopupMenuItem<Detector>(
-                child: Text('Detect Cloud Text'),
-                value: Detector.cloudText,
-              ),
-              const PopupMenuItem<Detector>(
-                child: Text('Detect Document Text'),
-                value: Detector.cloudDocumentText,
-              ),
-            ],
-          ),
-        ],
-      ),
+      appBar: AppBar(),
       body: _buildImage(),
       floatingActionButton: FloatingActionButton(
         onPressed: _toggleCameraDirection,
@@ -230,12 +164,7 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
   @override
   void dispose() {
     _camera.dispose().then((_) {
-      _barcodeDetector.close();
-      _faceDetector.close();
-      _imageLabeler.close();
-      _cloudImageLabeler.close();
       _recognizer.close();
-      _cloudRecognizer.close();
     });
 
     _currentDetector = null;
