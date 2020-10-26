@@ -54,22 +54,26 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
           setState(() {
             String text = results.text;
             for (TextBlock block in results.blocks) {
-              final Rect boundingBox = block.boundingBox;
-              final List<Offset> cornerPoints = block.cornerPoints;
-
-              final String text = block.text;
-              resultScan = text;
+              final String text =
+                  block.text.toUpperCase().replaceAll(RegExp(' +'), '');
               print("block.text===========================$text");
-              final List<RecognizedLanguage> languages =
-                  block.recognizedLanguages;
+              // проверка на соответствие номеру
+              try {
+                //RegExp exp = RegExp(r"^\w?(\d{3})(\w{2}(\d{2,3})?)?");
+                RegExp exp = RegExp(r"[A-Z]\d{3}[A-Z]{2}\d{2,3}");
+                Iterable<Match> matches = exp.allMatches(text);
 
-              // for (TextLine line in block.lines) {
-              //   print(
-              //       "line===================================================$line");
-              //   for (TextElement element in line.elements) {
-              //     print("element=================================$element");
-              //   }
-              // }
+                matches.forEach((key) {
+                  print("searh=======");
+                  print(text.substring(key.start, key.end));
+                  resultScan = text.substring(key.start, key.end);
+                });
+              } catch (e) {
+                print(e);
+              }
+
+              //resultScan = text;
+
             }
             _scanResults = results;
           });
@@ -122,8 +126,24 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
               children: <Widget>[
                 CameraPreview(_camera),
                 _buildResults(),
-                Container(
-                  child: Text("$resultScan"),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      flex: 9,
+                      child: Container(),
+                    ),
+                    Expanded(
+                        flex: 1,
+                        child: Container(
+                            color: Colors.white,
+                            child: Text(
+                              "$resultScan",
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 36),
+                            )))
+                  ],
                 )
               ],
             ),
