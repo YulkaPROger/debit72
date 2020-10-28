@@ -24,6 +24,9 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
   CameraLensDirection _direction = CameraLensDirection.back;
   String resultScan;
   bool isSearcing = false;
+  int searchNum = 0;
+  List<AvtoList> avtoListSearch;
+  var search;
 
   final TextRecognizer _recognizer = FirebaseVision.instance.textRecognizer();
 
@@ -38,8 +41,8 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
     final SharedPreferences prefs = await _prefs;
     final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
 
-    final response = await http
-        .get('http://109.194.162.125/debit/hs/debit72/avtoAll?APIkey=$apiKey');
+    final response = await http.get(
+        'http://109.194.162.125/debit/hs/debit72/avtoID?APIkey=$apiKey&StateNumber=$resultScan');
     // print(response.body);
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
@@ -51,8 +54,13 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
       // print(avtoList);
       // print("${ipDetail[0]}");
       // print(ipDetail[0]);
+      setState(() {
+        if (avtoList.length > 0) {
+          isSearcing = true;
+        }
+      });
 
-      return avtoList.map((json) => AvtoList.fromJson(json)).toList();
+      avtoListSearch = avtoList.map((json) => AvtoList.fromJson(json)).toList();
     } else {
       throw Exception('Error fetching judical order work');
     }
@@ -97,17 +105,17 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
                 matches.forEach((key) {
                   print("searh=======");
                   print(text.substring(key.start, key.end));
-                  resultScan = text.substring(key.start, key.end);
-                  // отправить запрос на сервер и получить данные isSearcing
-                  var search = getAvtoList();
-                  print(search.toString());
+                  String scan = text.substring(key.start, key.end);
+                  if (resultScan != scan) {
+                    resultScan = scan;
+                    isSearcing = false;
+                    search = getAvtoList();
+                    print(search.toString());
+                  }
                 });
               } catch (e) {
                 print(e);
               }
-
-              //resultScan = text;
-
             }
             _scanResults = results;
           });
@@ -165,7 +173,7 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Expanded(
-                      flex: 9,
+                      flex: isSearcing == false?9:4,
                       child: Container(),
                     ),
                     Expanded(
@@ -174,9 +182,45 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
                             color: Colors.white,
                             child: Text(
                               "$resultScan",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 36),
+                              style: TextStyle(
+                                  color: isSearcing == false
+                                      ? Colors.black
+                                      : Colors.red,
+                                  fontSize: 36),
                             ))),
+                    isSearcing == false
+                        ? Container()
+                        : Expanded(
+                            flex: 4,
+                            child: Container(
+                              color: Colors.white,
+                              child: ListTile(
+                                leading: Icon(
+                                  Icons.car_rental,
+                                  color: Colors.red,
+                                ),
+                                title: Text(avtoListSearch[0].debitor),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        "Арестовано: ${avtoListSearch[0].arestoredTS}"),
+                                    Text(
+                                        "ИП по которому арестовано: ${avtoListSearch[0].ipArested}"),
+                                    Text(
+                                        "Место хранения: ${avtoListSearch[0].storageLocation}"),
+                                    Text(
+                                        "Комментарий: ${avtoListSearch[0].commentCar}"),
+                                    Text(
+                                        "Cумма по оценке: ${avtoListSearch[0].ammountTS}"),
+                                    Text(
+                                        "Фонд: ул.${avtoListSearch[0].street}, дом ${avtoListSearch[0].house}, кв. ${avtoListSearch[0].apartment}"),
+                                    Text(
+                                        "ТС: ${avtoListSearch[0].debitorVehicles}"),
+                                  ],
+                                ),
+                              ),
+                            )),
                   ],
                 )
               ],
