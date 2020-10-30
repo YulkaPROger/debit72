@@ -37,6 +37,7 @@ dependencies:
   firebase_ml_vision: ^0.9.7
   image_picker: ^0.6.7+12
   flutter_camera_ml_vision: ^2.3.0
+  flutter_neumorphic: ^3.0.3
 
 dev_dependencies:
   flutter_test:

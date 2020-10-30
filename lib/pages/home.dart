@@ -1,5 +1,8 @@
-import 'package:debit72/theme/settings.dart';
-import 'package:provider/provider.dart';
+import 'package:debit72/widgets/home/previous-button.dart';
+import 'package:debit72/widgets/home/previous_icon.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
 
 import '../pages/nav_bar.dart';
 import '../widgets/home/previous.dart';
@@ -8,56 +11,69 @@ import 'package:flutter/material.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Scaffold(
       drawer: NavBar(),
       body: SafeArea(
           child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          RaisedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, 'ip');
-            },
-            child: Text("Исполнительное производство"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              PreviousIcon(
+                theme: theme,
+                icons: MaterialCommunityIcons.account_badge,
+              ),
+              ButtonMenu(
+                theme: theme,
+                textButton: "Исполнительное\nпроизводство",
+                textPages: 'ip',
+              ),
+            ],
           ),
-          RaisedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, 'avto');
-            },
-            child: Text("Автомобили"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ButtonMenu(
+                theme: theme,
+                textButton: "Автомобили",
+                textPages: 'avto',
+              ),
+              PreviousIcon(
+                theme: theme,
+                icons: Ionicons.ios_car,
+              ),
+            ],
           ),
-          RaisedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, 'jow');
-            },
-            child: Text("Судебно-приказная работа"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              PreviousIcon(
+                theme: theme,
+                icons: FontAwesome.legal,
+              ),
+              ButtonMenu(
+                theme: theme,
+                textButton: "Судебно-приказная\nработа",
+                textPages: 'jow',
+              ),
+            ],
           ),
-          RaisedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, 'search_avto_real_time');
-            },
-            child: Text("Поиск авто real-time"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ButtonMenu(
+                theme: theme,
+                textButton: "Поиск авто\nreal-time",
+                textPages: 'search_avto_real_time',
+              ),
+              PreviousIcon(theme: theme, icons: Ionicons.ios_search),
+            ],
           ),
           Previous(),
-          IconButton(
-            icon: Icon(Provider.of<Settings>(context).isDarkMode
-                ? Icons.brightness_high
-                : Icons.brightness_low),
-            onPressed: () {
-              changeTheme(
-                  Provider.of<Settings>(context, listen: false).isDarkMode
-                      ? false
-                      : true,
-                  context);
-            },
-          ),
         ],
       )),
     );
   }
-}
-
-void changeTheme(bool set, BuildContext context) {
-  /// Вызов метода setDarkMode внутри нашего Settings ChangeNotifier
-  /// класс для уведомления всех слушателей изменения.
-  Provider.of<Settings>(context, listen: false).setDarkMode(set);
 }

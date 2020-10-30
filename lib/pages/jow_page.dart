@@ -1,5 +1,5 @@
 import '../cubit/initial/initial_cubit.dart';
-import '../pages/nav_bar.dart';
+
 import '../services/repo.dart';
 import '../widgets/jow/action_buttons.dart';
 import '../widgets/jow/jow_list.dart';

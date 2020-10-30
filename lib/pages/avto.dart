@@ -4,7 +4,7 @@ import '../widgets/avto_list/search_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'nav_bar.dart';
+
 import '../widgets/avto_list/action_button_avto.dart';
 import '../widgets/avto_list/avto_list.dart';
 import '../widgets/avto_list/result.dart';

@@ -47,13 +47,7 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
       String body = utf8.decode(response.bodyBytes);
-      print("body");
-      print(body);
       final List<dynamic> avtoList = json.decode(body);
-      // print("ipDetail");
-      // print(avtoList);
-      // print("${ipDetail[0]}");
-      // print(ipDetail[0]);
       setState(() {
         if (avtoList.length > 0) {
           isSearcing = true;
@@ -150,15 +144,16 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
     );
   }
 
-  Widget _buildImage() {
+  Widget _buildImage(theme) {
+
     return Container(
       constraints: const BoxConstraints.expand(),
       child: _camera == null
           ? const Center(
               child: Text(
-                'Initializing Camera...',
+                'Инициализация камеры...',
                 style: TextStyle(
-                  color: Colors.green,
+                  color: Colors.cyanAccent,
                   fontSize: 30.0,
                 ),
               ),
@@ -179,13 +174,13 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
                     Expanded(
                         flex: 1,
                         child: Container(
-                            color: Colors.white,
+                            color: theme.buttonColor,
                             child: Text(
                               "$resultScan",
                               style: TextStyle(
                                   color: isSearcing == false
                                       ? Colors.black
-                                      : Colors.red,
+                                      : Colors.redAccent,
                                   fontSize: 36),
                             ))),
                     isSearcing == false
@@ -193,11 +188,11 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
                         : Expanded(
                             flex: 4,
                             child: Container(
-                              color: Colors.white,
+                              color: theme.buttonColor,
                               child: ListTile(
                                 leading: Icon(
                                   Icons.car_rental,
-                                  color: Colors.red,
+                                  color: Colors.redAccent,
                                 ),
                                 title: Text(avtoListSearch[0].debitor),
                                 subtitle: Column(
@@ -247,10 +242,14 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(),
-      body: _buildImage(),
+      appBar: AppBar(
+        backgroundColor: theme.buttonColor,
+      ),
+      body: _buildImage(theme),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: theme.accentColor,
         onPressed: _toggleCameraDirection,
         child: _direction == CameraLensDirection.back
             ? const Icon(Icons.camera_front)
