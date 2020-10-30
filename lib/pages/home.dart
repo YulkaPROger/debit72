@@ -1,3 +1,6 @@
+import 'package:debit72/theme/settings.dart';
+import 'package:provider/provider.dart';
+
 import '../pages/nav_bar.dart';
 import '../widgets/home/previous.dart';
 import 'package:flutter/material.dart';
@@ -35,8 +38,26 @@ class HomePage extends StatelessWidget {
             child: Text("Поиск авто real-time"),
           ),
           Previous(),
+          IconButton(
+            icon: Icon(Provider.of<Settings>(context).isDarkMode
+                ? Icons.brightness_high
+                : Icons.brightness_low),
+            onPressed: () {
+              changeTheme(
+                  Provider.of<Settings>(context, listen: false).isDarkMode
+                      ? false
+                      : true,
+                  context);
+            },
+          ),
         ],
       )),
     );
   }
+}
+
+void changeTheme(bool set, BuildContext context) {
+  /// Вызов метода setDarkMode внутри нашего Settings ChangeNotifier
+  /// класс для уведомления всех слушателей изменения.
+  Provider.of<Settings>(context, listen: false).setDarkMode(set);
 }

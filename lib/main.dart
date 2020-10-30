@@ -1,7 +1,7 @@
-import 'pages/search_avto_RT.dart';
-import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'models/theme_model.dart';
+import 'pages/search_avto_RT.dart';
+
 import 'pages/avto.dart';
 import 'pages/home.dart';
 import 'pages/ip_detail.dart';
@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'models/provider.dart';
+import 'theme/settings.dart';
+import 'theme/themes.dart';
 
 void main() {
   runApp(
@@ -19,9 +21,6 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: ProviderModel()),
-        ChangeNotifierProvider<ThemeModel>(
-          create: (_) => ThemeModel(),
-        ),
       ],
       child: MyApp(),
     ),
@@ -29,45 +28,63 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final jow = MyJOW();
-  final ip = IPScreen();
-  final avto = Avto();
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-
-    return ChangeNotifierProvider<ThemeModel>(
-        create: (BuildContext context) => ThemeModel(),
-        child: Consumer<ThemeModel>(builder: (context, model, __) {
-          return MaterialApp(
-            initialRoute: 'home_page',
-            routes: <String, WidgetBuilder>{
-              // When navigating to the "/" route, build the FirstScreen widget.
-              'home_page': (context) => HomePage(),
-              'jow': (context) => MyJOW(),
-              'ip': (context) => IPScreen(),
-              'ipDetail': (context) => IPDetail(),
-              'avto': (context) => Avto(),
-              'search_avto_real_time': (context) => CameraPreviewScanner(),
-            },
-            darkTheme: ThemeData.dark(),
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              dividerColor: model.dividerColor,
-              textTheme: Theme.of(context).textTheme.apply(
-                  bodyColor: model.textColor, displayColor: model.textColor),
-              appBarTheme: AppBarTheme(color: model.appbarcolor),
-              primaryColor: model.primaryMainColor,
-              accentColor: model.accentColor,
-            ),
-            title: 'Flutter Multi Theme',
-          );
-        }));
+    return FutureBuilder<SharedPreferences>(
+      future: SharedPreferences.getInstance(),
+      builder:
+          (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
+        return ChangeNotifierProvider<Settings>.value(
+          value: Settings(snapshot.data),
+          child: _MyApp(),
+        );
+      },
+    );
   }
 }
+
+class _MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      theme: Provider.of<Settings>(context).isDarkMode
+          ? setDarkTheme
+          : setLightTheme,
+      initialRoute: 'home_page',
+      routes: <String, WidgetBuilder>{
+        // When navigating to the "/" route, build the FirstScreen widget.
+        'home_page': (context) => HomePage(),
+        'jow': (context) => MyJOW(),
+        'ip': (context) => IPScreen(),
+        'ipDetail': (context) => IPDetail(),
+        'avto': (context) => Avto(),
+        'search_avto_real_time': (context) => CameraPreviewScanner(),
+      },
+    );
+  }
+}
+
+//           return MaterialApp(
+//             initialRoute: 'home_page',
+//             routes: <String, WidgetBuilder>{
+//               // When navigating to the "/" route, build the FirstScreen widget.
+//               'home_page': (context) => HomePage(),
+//               'jow': (context) => MyJOW(),
+//               'ip': (context) => IPScreen(),
+//               'ipDetail': (context) => IPDetail(),
+//               'avto': (context) => Avto(),
+//               'search_avto_real_time': (context) => CameraPreviewScanner(),
+//             },
+
+//             debugShowCheckedModeBanner: false,
+
+//             title: 'App for Arest',
+//           );
+
+//   }
+// }
 
 // class MyApp extends StatelessWidget {
 //   // This widget is the root of your application.
