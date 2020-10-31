@@ -1,3 +1,6 @@
+import 'package:debit72/theme/settings.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
 import '../../cubit/initial/initial_cubit.dart';
 import '../../models/provider.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +23,7 @@ class _IPListState extends State<IPList> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     ProviderModel provider = Provider.of(context);
     return BlocBuilder<InitialCubit, InitialState>(
       builder: (context, state) {
@@ -32,7 +36,7 @@ class _IPListState extends State<IPList> {
         if (state is IpLoading) {
           return Center(
             child: SpinKitFadingCircle(
-              color: Colors.amber,
+              color: theme.accentColor,
             ),
             //child: CircularProgressIndicator(),
           );
@@ -44,7 +48,15 @@ class _IPListState extends State<IPList> {
             child: ListView.builder(
                 itemCount: state.loadedData.length,
                 itemBuilder: (context, index) {
-                  return RaisedButton(
+                  return NeumorphicButton(
+                    margin: EdgeInsets.all(8),
+                    style: NeumorphicStyle(
+                        shape: NeumorphicShape.concave,
+                        lightSource: Provider.of<Settings>(context).isDarkMode
+                            ? LightSource.bottomRight
+                            : LightSource.topLeft,
+                        depth: 2,
+                        color: theme.buttonColor),
                     onPressed: () {
                       var id = state.loadedData[index].link.toString();
                       provider.setNumID(numForSetNumID: id);

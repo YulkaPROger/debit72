@@ -17,11 +17,16 @@ class _IPDetailState extends State<IPDetail> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     ProviderModel provider = Provider.of(context);
     return BlocProvider<InitialCubit>(
       create: (context) => InitialCubit(repository: repository),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: theme.buttonColor,
+          iconTheme: IconThemeData(
+            color: theme.accentColor,
+          ),
           title: AppBarText(),
         ),
         body: SafeArea(
@@ -37,11 +42,6 @@ class _IPDetailState extends State<IPDetail> {
             ),
           ),
         ),
-        // body: SingleChildScrollView(
-        //   child: IPListDetail(
-        //     id: provider.numID,
-        //   ),
-        // ),
       ),
     );
   }

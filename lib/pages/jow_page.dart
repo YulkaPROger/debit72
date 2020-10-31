@@ -18,11 +18,16 @@ class _MyJOWState extends State<MyJOW> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return BlocProvider<InitialCubit>(
       create: (context) => InitialCubit(repository: repository),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: theme.buttonColor,
+          iconTheme: IconThemeData(
+            color: theme.accentColor,
+          ),
           title: SearchField(),
         ),
         key: _scaffoldKey,

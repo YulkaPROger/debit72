@@ -10,15 +10,16 @@ class AppBarText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return BlocBuilder<InitialCubit, InitialState>(builder: (context, state) {
       if (state is InitialIpDetail) {
         return Center(
-          child: Text("data not loaded"),
+          child: Text("Данные не загружены"),
         );
       }
       if (state is IpDetailLoading) {
         return Center(
-          child: SpinKitFadingCircle(color: Colors.amber),
+          child: SpinKitFadingCircle(color: theme.accentColor),
           //child: CircularProgressIndicator(),
         );
       }
@@ -38,7 +39,7 @@ class AppBarText extends StatelessWidget {
       }
       if (state is IpDetailError) {
         return Center(
-          child: Text("Error fetching IP"),
+          child: Text("Ошибка получения данных"),
         );
       }
       return Container();

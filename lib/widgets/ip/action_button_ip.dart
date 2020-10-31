@@ -7,10 +7,12 @@ class ActionButtonIP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final InitialCubit ipCubit = context.bloc<InitialCubit>();
-    return FloatingActionButton(
+    var theme = Theme.of(context);
+    return RaisedButton(
         child: Icon(
           AntDesign.retweet,
           size: 30,
+          color: theme.accentColor,
         ),
         onPressed: () {
           ipCubit.fetchIP();

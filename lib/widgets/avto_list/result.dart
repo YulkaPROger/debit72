@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class RowResultsAvto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return BlocBuilder<InitialCubit, InitialState>(
       builder: (context, state) {
         if (state is InitialAvto) {
@@ -26,10 +27,12 @@ class RowResultsAvto extends StatelessWidget {
               children: [
                 Text(
                   "Итого: ",
+                  style: TextStyle(fontWeight: FontWeight.bold, color: theme.accentColor)
                 ),
                 Text(
                   state.loadedDataInfo.length.toString(),
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  
+                  style: TextStyle(fontWeight: FontWeight.bold, color: theme.accentColor),
                 ),
               ],
             ),

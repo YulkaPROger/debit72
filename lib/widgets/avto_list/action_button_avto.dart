@@ -6,12 +6,13 @@ import 'package:flutter_icons/flutter_icons.dart';
 class ActionButtonAvto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     final InitialCubit ipCubit = context.bloc<InitialCubit>();
     return RaisedButton(
         child: Icon(
           AntDesign.retweet,
           size: 30,
-          color: Colors.amber,
+          color: theme.accentColor,
         ),
         onPressed: () {
           ipCubit.fetchAvtoList();

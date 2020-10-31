@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:debit72/services/category.dart';
 import 'package:flutter/material.dart';
 
 class PieChart extends CustomPainter {
@@ -52,27 +53,11 @@ class PieChart extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
 
-class Category {
-  Category(this.name, {@required this.amount});
-
-  final String name;
-  final double amount;
-}
-
-final kCategories = [
-  Category('groceries', amount: 500.00),
-  Category('online Shopping', amount: 150.00),
-  Category('eating', amount: 90.00),
-  Category('bills', amount: 90.00),
-  Category('subscriptions', amount: 40.00),
-  Category('fees', amount: 20.00),
-];
-
 final kNeumorphicColors = [
-  Color.fromRGBO(82, 98, 255, 1), //  rgb(82, 98, 255)
-  Color.fromRGBO(46, 198, 255, 1), // rgb(46, 198, 255)
-  Color.fromRGBO(123, 201, 82, 1), // rgb(123, 201, 82)
-  Color.fromRGBO(255, 171, 67, 1), // rgb(255, 171, 67)
-  Color.fromRGBO(252, 91, 57, 1), //  rgb(252, 91, 57)
-  Color.fromRGBO(139, 135, 130, 1), //rgb(139, 135, 130)
+  Color(0xFFFF8A80),
+  Color(0xFFFFAB40),
+  Color(0xFFFFFF00),
+  Color(0xFF69F0AE),
+  Color(0xFF448AFF),
+  Color(0xFFE040FB)
 ];

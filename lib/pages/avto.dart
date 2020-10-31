@@ -16,8 +16,10 @@ class Avto extends StatefulWidget {
 
 class _AvtoState extends State<Avto> {
   final RepositoryIP repository = RepositoryIP();
+  
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     final GlobalKey<ScaffoldState> _scaffoldKeyAvto =
         GlobalKey<ScaffoldState>();
 
@@ -27,7 +29,7 @@ class _AvtoState extends State<Avto> {
         key: _scaffoldKeyAvto,
         appBar: AppBar(
           iconTheme: IconThemeData(
-            color: Colors.amber,
+            color: theme.accentColor,
           ),
           title: SearchFieldAvto(),
         ),

@@ -1,4 +1,5 @@
 import 'package:debit72/models/previous_info.dart';
+import 'package:debit72/services/category.dart';
 import 'package:debit72/widgets/home/pie_chart.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -29,6 +30,7 @@ class _PreviousInfoState extends State<PreviousInfo> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+
     return BlocBuilder<InitialCubit, InitialState>(
       builder: (context, state) {
         if (state is InitialInfo) {
@@ -47,8 +49,15 @@ class _PreviousInfoState extends State<PreviousInfo> {
 
         if (state is InfoLoaded) {
           var info = state.loadedDataInfo[0];
+          final kCategories = [
+            Category('Общая сумма долгов', amount: info.totalAmountDebt),
+            Category('Остаток долгов', amount: info.remainingDebt),
+            Category('Сумма пошлин', amount: info.dutyAmount),
+            Category('Сумма юр услуг', amount: info.sumOfYurServices),
+            Category('Сумма пени', amount: info.penaltyAmount),
+            Category('Сумма ЖКУ', amount: info.amountOfCollectingZhKU),
+          ];
           return Row(
-            
             children: [
               Expanded(
                   flex: 8,
@@ -57,10 +66,6 @@ class _PreviousInfoState extends State<PreviousInfo> {
                       Text(
                         "ОБЩАЯ СВОДКА",
                         style: TextStyle(fontSize: 12),
-                      ),
-                      Points(
-                        text: "Дел: ${info.quantity}",
-                        color: Colors.purpleAccent,
                       ),
                       Points(
                         text:
@@ -88,7 +93,7 @@ class _PreviousInfoState extends State<PreviousInfo> {
                       Points(
                         text:
                             "Сумма ЖКУ: \n${numFormat(info.amountOfCollectingZhKU)}",
-                        color: Colors.brown,
+                        color: Colors.purpleAccent,
                       ),
                     ],
                   )),
@@ -97,7 +102,6 @@ class _PreviousInfoState extends State<PreviousInfo> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      
                       LayoutBuilder(builder: (context, constraint) {
                         return Container(
                           padding: EdgeInsets.all(10),
@@ -126,14 +130,12 @@ class _PreviousInfoState extends State<PreviousInfo> {
                                   child: CustomPaint(
                                     child: Center(),
                                     foregroundPainter: PieChart(
-                                        width: 80,
-                                        categories: kCategories),
+                                        width: 80, categories: kCategories),
                                   ),
                                 ),
                               ),
                               Center(
                                 child: Container(
-                                  
                                   height: 60,
                                   decoration: BoxDecoration(
                                     color: theme.buttonColor,
@@ -192,13 +194,16 @@ class Points extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        SizedBox(
+          width: 10,
+        ),
         Container(
           width: 7,
           height: 7,
           decoration: BoxDecoration(shape: BoxShape.circle, color: color),
         ),
         SizedBox(
-          width: 20,
+          width: 10,
         ),
         Text(text)
       ],

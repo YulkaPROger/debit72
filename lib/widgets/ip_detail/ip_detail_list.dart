@@ -1,3 +1,7 @@
+import 'package:debit72/theme/settings.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:provider/provider.dart';
+
 import '../../cubit/initial/initial_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +28,7 @@ class _IPListDetailState extends State<IPListDetail> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return BlocBuilder<InitialCubit, InitialState>(
       builder: (context, state) {
         if (state is InitialIpDetail) {
@@ -34,7 +39,7 @@ class _IPListDetailState extends State<IPListDetail> {
 
         if (state is IpDetailLoading) {
           return Center(
-            child: SpinKitFadingCircle(color: Colors.amber),
+            child: SpinKitFadingCircle(color: theme.accentColor),
             //child: CircularProgressIndicator(),
           );
         }
@@ -49,15 +54,15 @@ class _IPListDetailState extends State<IPListDetail> {
                   TextOnIndicator(
                     text: "Общая сумма долга: ${ip.totalDebtAmount}",
                   ),
-                  // PersentIndicator(
-                  //   percent: 1,
-                  // ),
+                  PersentIndicator(
+                    percent: 1,
+                  ),
                   TextOnIndicator(
                     text: "Остаток долга: ${ip.remainingDebt}",
                   ),
-                  // PersentIndicator(
-                  //   percent: ip.remainingDebt / ip.totalDebtAmount,
-                  // ),
+                  PersentIndicator(
+                    percent: ip.remainingDebt / ip.totalDebtAmount,
+                  ),
                   TextOnIndicator(
                     text: "Остаток долга ФССП: ${ip.remainingFSSP}",
                   ),
@@ -148,7 +153,7 @@ class _IPListDetailState extends State<IPListDetail> {
                           ),
                           leading: Icon(
                             Icons.person,
-                            color: Colors.amber,
+                            color: theme.accentColor,
                           ),
                           trailing: Column(
                             children: [
@@ -173,13 +178,22 @@ class _IPListDetailState extends State<IPListDetail> {
                                     itemCount: ip.avto.length,
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
-                                      return Container(
+                                      return Neumorphic(
+                                        style: NeumorphicStyle(
+                                            shape: NeumorphicShape.concave,
+                                            lightSource:
+                                                Provider.of<Settings>(context)
+                                                        .isDarkMode
+                                                    ? LightSource.bottomRight
+                                                    : LightSource.topLeft,
+                                            depth: 2,
+                                            color: theme.buttonColor),
                                         margin: const EdgeInsets.all(8),
                                         child: Container(
                                           width: 300,
                                           child: ListTile(
                                             leading: Icon(Ionicons.ios_car,
-                                                color: Colors.amber),
+                                                color: theme.accentColor),
                                             title: Text(
                                               "${ip.avto[index].avto}",
                                             ),
@@ -209,28 +223,37 @@ class _IPListDetailState extends State<IPListDetail> {
                                     itemBuilder: (context, index) {
                                       return Container(
                                         margin: const EdgeInsets.all(8),
-                                        child: Container(
-                                          width: 300,
-                                          child: ListTile(
-                                            leading: Icon(
-                                              Entypo.credit_card,
-                                              color: Colors.amber,
-                                            ),
-                                            title: Text(
-                                              "${ip.setlementsAccounts[index].number}",
-                                            ),
-                                            subtitle: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  "Тип счета: ${ip.setlementsAccounts[index].accountType}",
-                                                ),
-                                                Text(
-                                                  "БАНК: ${ip.setlementsAccounts[index].bank}",
-                                                ),
-                                              ],
+                                        child: Neumorphic(
+                                          style: NeumorphicStyle(
+                                              shape: NeumorphicShape.concave,
+                                              lightSource:
+                                                  Provider.of<Settings>(context)
+                                                          .isDarkMode
+                                                      ? LightSource.bottomRight
+                                                      : LightSource.topLeft,
+                                              depth: 2,
+                                              color: theme.buttonColor),
+                                          child: Container(
+                                            width: 300,
+                                            child: ListTile(
+                                              leading: Icon(Entypo.credit_card,
+                                                  color: theme.accentColor),
+                                              title: Text(
+                                                "${ip.setlementsAccounts[index].number}",
+                                              ),
+                                              subtitle: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    "Тип счета: ${ip.setlementsAccounts[index].accountType}",
+                                                  ),
+                                                  Text(
+                                                    "БАНК: ${ip.setlementsAccounts[index].bank}",
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -244,14 +267,23 @@ class _IPListDetailState extends State<IPListDetail> {
                                     itemCount: ip.property.length,
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
-                                      return Container(
+                                      return Neumorphic(
+                                        style: NeumorphicStyle(
+                                            shape: NeumorphicShape.concave,
+                                            lightSource:
+                                                Provider.of<Settings>(context)
+                                                        .isDarkMode
+                                                    ? LightSource.bottomRight
+                                                    : LightSource.topLeft,
+                                            depth: 2,
+                                            color: theme.buttonColor),
                                         margin: const EdgeInsets.all(8),
                                         child: Container(
                                           width: 300,
                                           child: ListTile(
                                             leading: Icon(
                                               Ionicons.ios_home,
-                                              color: Colors.amber,
+                                              color: theme.accentColor,
                                             ),
                                             title: Column(
                                               mainAxisSize: MainAxisSize.max,
@@ -275,14 +307,23 @@ class _IPListDetailState extends State<IPListDetail> {
                                     itemCount: ip.busines.length,
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
-                                      return Container(
+                                      return Neumorphic(
+                                        style: NeumorphicStyle(
+                                            shape: NeumorphicShape.concave,
+                                            lightSource:
+                                                Provider.of<Settings>(context)
+                                                        .isDarkMode
+                                                    ? LightSource.bottomRight
+                                                    : LightSource.topLeft,
+                                            depth: 2,
+                                            color: theme.buttonColor),
                                         margin: const EdgeInsets.all(8),
                                         child: Container(
                                           width: 300,
                                           child: ListTile(
                                             leading: Icon(
                                               Ionicons.ios_business,
-                                              color: Colors.amber,
+                                              color: theme.accentColor,
                                             ),
                                             title: Text(
                                               "Наименование: ${ip.busines[index].propertyBusines}",
@@ -321,15 +362,22 @@ class _IPListDetailState extends State<IPListDetail> {
                                     itemCount: ip.employer.length,
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
-                                      return Container(
+                                      return Neumorphic(
+                                        style: NeumorphicStyle(
+                                            shape: NeumorphicShape.concave,
+                                            lightSource:
+                                                Provider.of<Settings>(context)
+                                                        .isDarkMode
+                                                    ? LightSource.bottomRight
+                                                    : LightSource.topLeft,
+                                            depth: 2,
+                                            color: theme.buttonColor),
                                         margin: const EdgeInsets.all(8),
                                         child: Container(
                                           width: 300,
                                           child: ListTile(
-                                            leading: Icon(
-                                              MaterialIcons.work,
-                                              color: Colors.amber,
-                                            ),
+                                            leading: Icon(MaterialIcons.work,
+                                                color: theme.accentColor),
                                             title: Text(
                                               "Наименование: ${ip.employer[index].employerName}",
                                             ),
@@ -357,14 +405,6 @@ class _IPListDetailState extends State<IPListDetail> {
               ),
             ),
           );
-
-          //             ],
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // );
         }
 
         if (state is IpDetailError) {
@@ -499,13 +539,21 @@ class DateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-      // margin: EdgeInsets.only(
-      //   left: 2,
-      //   right: 5,
-      //   top: 5,
-      //   bottom: 5,
-      // ),
+    var theme = Theme.of(context);
+    return NeumorphicButton(
+      style: NeumorphicStyle(
+          shape: NeumorphicShape.concave,
+          lightSource: Provider.of<Settings>(context).isDarkMode
+              ? LightSource.bottomRight
+              : LightSource.topLeft,
+          depth: 2,
+          color: theme.buttonColor),
+      margin: EdgeInsets.only(
+        left: 2,
+        right: 5,
+        top: 5,
+        bottom: 5,
+      ),
       child: Column(
         children: [
           Text(text1),
@@ -524,29 +572,30 @@ class DateWidget extends StatelessWidget {
   }
 }
 
-// class PersentIndicator extends StatelessWidget {
-//   final double percent;
-//   const PersentIndicator({
-//     Key key,
-//     this.percent,
-//   }) : super(key: key);
+class PersentIndicator extends StatelessWidget {
+  final double percent;
+  const PersentIndicator({
+    Key key,
+    this.percent,
+  }) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.only(bottom: 2.0, right: 8.0),
-//       child: LinearProgressIndicator(
-//         // orientation: NeumorphicIndicatorOrientation.horizontal,
-//         // duration: Duration(microseconds: 1500),
-//         // height: 12,
-//         // style: IndicatorStyle(
-//         //     accent: percent < 0 ? Colors.red : Colors.blueAccent,
-//         //     variant: percent < 0 ? Colors.red : Colors.blueAccent),
-//         value: percent < 0 ? percent * (-1) : percent,
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 2.0, right: 8.0),
+      child: NeumorphicProgress(
+        duration: Duration(microseconds: 1500),
+        height: 12,
+        style: ProgressStyle(
+            depth: -2,
+            accent: percent < 0 ? Colors.red : theme.accentColor,
+            variant: percent < 0 ? Colors.red : theme.indicatorColor),
+        percent: percent < 0 ? percent * (-1) : percent,
+      ),
+    );
+  }
+}
 
 class TextOnIndicator extends StatelessWidget {
   final text;

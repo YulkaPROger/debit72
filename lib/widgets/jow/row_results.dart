@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class RowResults extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return BlocBuilder<InitialCubit, InitialState>(
       builder: (context, state) {
         if (state is InitialJOW) {
@@ -16,18 +17,38 @@ class RowResults extends StatelessWidget {
         }
 
         if (state is JOWLoaded) {
-          return Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "Итого: ",
-              ),
-              Text(
-                state.loadedDataInfo.length.toString(),
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
+          return RaisedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, 'ip');
+            },
+            padding: const EdgeInsets.all(6.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Итого: ",
+                  style: TextStyle(fontWeight: FontWeight.bold, color: theme.accentColor)
+                ),
+                Text(
+                  state.loadedDataInfo.length.toString(),
+                  
+                  style: TextStyle(fontWeight: FontWeight.bold, color: theme.accentColor),
+                ),
+              ],
+            ),
           );
+          // return Row(
+          //   mainAxisSize: MainAxisSize.min,
+          //   children: [
+          //     Text(
+          //       "Итого: ",
+          //     ),
+          //     Text(
+          //       state.loadedDataInfo.length.toString(),
+          //       style: TextStyle(fontWeight: FontWeight.bold),
+          //     ),
+          //   ],
+          // );
         }
 
         if (state is JOWError) {
