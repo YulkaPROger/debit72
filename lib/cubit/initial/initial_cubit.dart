@@ -32,11 +32,12 @@ class InitialCubit extends Cubit<InitialState> {
   //   }
   // }
   Future<void> fetchIPfromJSON() async {
+
     try {
       emit(IpLoading());
 
       final List<IP> _loadedIP = await repository
-          .getAllIDFromServer()
+          .getAllIDFromJSON()
           .then((value) => fetchingIP = value);
       emit(IpLoaded(loadedData: _loadedIP));
     } catch (e) {

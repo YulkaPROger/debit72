@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart';
 
 import '../models/avto_list.dart';
 import '../models/ip.dart';
@@ -33,28 +36,23 @@ class Api {
 
   //Получаем данные Исполнительного производства из JSON
   Future<List<IP>> getAllIDfromJSON() async {
-    // Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    // final SharedPreferences prefs = await _prefs;
-    // final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String appDocPath = appDocDir.path;
+    File file = await File("$appDocPath/ip.json");
+    String fileContent = await file.readAsString();
+    String jsonResponse = json.decode(fileContent);
+    print(jsonResponse.runtimeType);
 
-    // final response = await http
-    //     .get('http://109.194.162.125/debit/hs/debit72/IP?APIkey=$apiKey');
-
-    String responseBody = await rootBundle.loadString('JSON/ip.json');
-    var response = await jsonDecode(responseBody);
-    print(response);
-    if (response.toString() != null) {
-      //декодировать в UTF-8 иначе приходят каракули
-      String body = utf8.decode(response.bodyBytes);
-      // print(body);
-      final List<dynamic> ipJSON = json.decode(body);
+    // String responseBody = await rootBundle.loadString('assets/JSON/ip.json');
+    if (fileContent.toString() != null) {
+      final List<dynamic> ipJSON = json.decode(jsonResponse);
       return ipJSON.map((json) => IP.fromJson(json)).toList();
     } else {
       throw Exception('Error fetching judical order work');
     }
   }
 
-  //Получаем данные Исполнительного производства с сервера
+  //Получаем данные Исполнительного производства с сервера и записывае в JSON
   Future<List<IP>> getAllID() async {
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
@@ -66,9 +64,17 @@ class Api {
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
       String body = utf8.decode(response.bodyBytes);
-      // print(body);
+
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      String appDocPath = appDocDir.path;
+      File file = await File("$appDocPath/ip.json").create();
+      String fileContent = json.encode(body);
+      file.writeAsString(fileContent);
+
+
       final List<dynamic> ipJSON = json.decode(body);
       return ipJSON.map((json) => IP.fromJson(json)).toList();
+
     } else {
       throw Exception('Error fetching judical order work');
     }

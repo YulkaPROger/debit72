@@ -12,6 +12,7 @@ class Repository {
 
 class RepositoryIP extends Repository {
   Future<List<IP>> getAllIDFromServer() => _providerApi.getAllID();
+  Future<List<IP>> getAllIDFromJSON() => _providerApi.getAllIDfromJSON();
 }
 
 class RepositoryIPDetail extends Repository {

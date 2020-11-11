@@ -18,7 +18,8 @@ class _IPListState extends State<IPList> {
   void initState() {
     super.initState();
     final InitialCubit jowCubit = context.bloc<InitialCubit>();
-    jowCubit.fetchIP();
+    // jowCubit.fetchIP();
+    jowCubit.fetchIPfromJSON();
   }
 
   @override
