@@ -1,4 +1,5 @@
 import 'package:debit72/theme/settings.dart';
+import 'package:debit72/widgets/ip_detail/persent_indicator.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
@@ -90,6 +91,11 @@ class _IPListDetailState extends State<IPListDetail> {
                       scrollDirection: Axis.horizontal,
                       children: [
                         DateWidget(
+                          text1: "Лицевой счет",
+                          text2: "",
+                          text3: ip.ls,
+                        ),
+                        DateWidget(
                           text1: "Период с",
                           text2: _dateFromData(ip.periodS),
                           text3: _monthAndYearFromData(ip.periodS),
@@ -114,6 +120,7 @@ class _IPListDetailState extends State<IPListDetail> {
                           text2: _dateFromData(ip.completionDateIP),
                           text3: _monthAndYearFromData(ip.completionDateIP),
                         ),
+                        
                       ],
                     ),
                   ),
@@ -589,30 +596,7 @@ class DateWidget extends StatelessWidget {
   }
 }
 
-class PersentIndicator extends StatelessWidget {
-  final double percent;
-  const PersentIndicator({
-    Key key,
-    this.percent,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 2.0, right: 8.0),
-      child: NeumorphicProgress(
-        duration: Duration(microseconds: 1500),
-        height: 12,
-        style: ProgressStyle(
-            depth: -2,
-            accent: percent < 0 ? Colors.red : theme.accentColor,
-            variant: percent < 0 ? Colors.red : theme.indicatorColor),
-        percent: percent < 0 ? percent * (-1) : percent,
-      ),
-    );
-  }
-}
 
 class TextOnIndicator extends StatelessWidget {
   final text;

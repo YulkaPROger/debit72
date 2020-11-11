@@ -1,4 +1,7 @@
 import 'package:debit72/theme/settings.dart';
+import 'package:debit72/widgets/ip_detail/persent_indicator.dart';
+
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../../cubit/initial/initial_cubit.dart';
@@ -68,30 +71,76 @@ class _IPListState extends State<IPList> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "НомерИД: ${state.loadedData[index].numberID}",
+                        Row(
+                          children: [
+                            Icon(
+                              Entypo.user,
+                              color: theme.accentColor,
+                            ),
+                            Expanded(child: Text("${state.loadedData[index].defendants}")),
+                          ],
                         ),
-                    
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                  "Ул. ${state.loadedData[index].street}, д. ${state.loadedData[index].house} кв. ${state.loadedData[index].apartment}"),
+                            ),
+                            Icon(
+                              Entypo.home,
+                              color: theme.accentColor,
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          color: theme.accentColor,
+                        ),
+                        Text("${state.loadedData[index].claimant}"),
                         Text(
-                            "Должник: \n${state.loadedData[index].defendants}"),
+                          "ИД: ${state.loadedData[index].numberID}",
+                        ),
                         Text(
-                            "${state.loadedData[index].claimant}"),
-                        Text(
-                            "Ул. ${state.loadedData[index].street}, д. ${state.loadedData[index].house} кв. ${state.loadedData[index].apartment}"),
+                          "ИП: ${state.loadedData[index].regNumberIP}",
+                        ),
                         Text(
                           "${state.loadedData[index].bailiffDepartment}",
                         ),
-                        Text(
-                          "СПИ: ${state.loadedData[index].bailiff}",
+                        Row(
+                          children: [
+                            Icon(
+                              Entypo.medal,
+                              color: theme.accentColor,
+                            ),
+                            Expanded(
+                              child: Text(
+                                "${state.loadedData[index].bailiff}",
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          "Рег номер ИП: ${state.loadedData[index].regNumberIP}",
+                        Divider(
+                          color: theme.accentColor,
                         ),
-                        Text(
-                          "Общая сумма долга: ${state.loadedData[index].sumDebt} руб.",
-                        ),
-                        Text(
-                          "Остаток долга: ${state.loadedData[index].remainderDebt} руб.",
+                        Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Долг: ${state.loadedData[index].sumDebt} руб.",
+                                ),
+                                Text(
+                                  "Остаток: ${state.loadedData[index].remainderDebt} руб.",
+                                ),
+                                // PersentIndicator(
+                                //   percent: double.parse(state
+                                //           .loadedData[index].remainderDebt)??0.01 /
+                                //       double.parse(
+                                //           state.loadedData[index].sumDebt)??0.01,
+                                // ),
+                              ],
+                            ),
+                          ],
                         ),
                       ],
                     ),

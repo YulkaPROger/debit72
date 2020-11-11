@@ -1,4 +1,5 @@
 import 'package:debit72/theme/settings.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../../cubit/initial/initial_cubit.dart';
@@ -61,17 +62,60 @@ class _AvtoListState extends State<AvtoList> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                            "Авто: ${state.loadedDataInfo[index].debitorVehicles}"),
-                        Text(
-                            "Модель: ${state.loadedDataInfo[index].modelTS}, Гос номер: ${state.loadedDataInfo[index].numberTS}"),
+                        Row(
+                          children: [
+                            Icon(
+                              Ionicons.ios_car,
+                              color: theme.accentColor,
+                            ),
+                            SizedBox(
+                              width: 16,
+                            ),
+                            Expanded(
+                              child: Text(
+                            "Модель: ${state.loadedDataInfo[index].modelTS}\nГос номер: ${state.loadedDataInfo[index].numberTS}"),
+                              // Text(
+                              //     "${state.loadedDataInfo[index].debitorVehicles}"),
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          color: theme.accentColor,
+                        ),
+                        
                         state.loadedDataInfo[index].ammountTS != ""
-                            ? Text(
-                                "Стоимость ТС: ${state.loadedDataInfo[index].ammountTS}",
+                            ? Row(
+                                children: [
+                                  Icon(
+                                    Foundation.dollar_bill,
+                                    color: theme.accentColor,
+                                  ),
+                                  SizedBox(
+                                    width: 16,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      "${state.loadedDataInfo[index].ammountTS}",
+                                    ),
+                                  ),
+                                ],
                               )
                             : Container(),
-                        Text(
-                          "Должник: ${state.loadedDataInfo[index].debitor}",
+                        Row(
+                          children: [
+                            Icon(
+                              Entypo.user,
+                              color: theme.accentColor,
+                            ),
+                            SizedBox(
+                              width: 16,
+                            ),
+                            Expanded(
+                              child: Text(
+                                "${state.loadedDataInfo[index].debitor}",
+                              ),
+                            ),
+                          ],
                         ),
                         state.loadedDataInfo[index].apartment == " "
                             ? Text(
@@ -92,17 +136,10 @@ class _AvtoListState extends State<AvtoList> {
                                 "ИП, по которому арестовано ТС: ${state.loadedDataInfo[index].ipArested}",
                               )
                             : Container(),
-                        Neumorphic(
-                          style: NeumorphicStyle(
-                              shape: NeumorphicShape.concave,
-                              lightSource:
-                                  Provider.of<Settings>(context).isDarkMode
-                                      ? LightSource.bottomRight
-                                      : LightSource.topLeft,
-                              depth: -2,
-                              color: theme.buttonColor),
-                          child: Container(
-                            height: 170,
+                        SizedBox(height: 16,),
+                        Container(
+                            height: 160,
+                           
                             child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount:
@@ -110,50 +147,59 @@ class _AvtoListState extends State<AvtoList> {
                                 itemBuilder: (context, i) {
                                   var ip =
                                       state.loadedDataInfo[index].ipList[i];
-                                  return NeumorphicButton(
-                                    margin: EdgeInsets.all(8),
-                                    style: NeumorphicStyle(
-                                        shape: NeumorphicShape.concave,
-                                        lightSource:
-                                            Provider.of<Settings>(context)
-                                                    .isDarkMode
-                                                ? LightSource.bottomRight
-                                                : LightSource.topLeft,
-                                        depth: 2,
-                                        color: theme.buttonColor),
-                                    onPressed: () {
-                                      var ipDetail = ip.numberIP.toString();
-                                      provider.setNumID(
-                                          numForSetNumID: ipDetail);
-                                      print(ipDetail);
-                                      Navigator.of(context)
-                                          .pushNamed('ipDetail');
-                                    },
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text("${ip.regNumberIP}"),
-                                        Text("${ip.claimant}"),
-                                        Text("${ip.codesVKSP}"),
-                                        Text(
-                                            "Ул. ${ip.street}, д. ${ip.house} кв. ${ip.apartment}"),
-                                        Text(
-                                          "Сумма долга: ${ip.amountDebt}",
-                                        ),
-                                        Text(
-                                          "Остаток долга: ${ip.remainingDebt}",
-                                        ),
-                                        Text(
-                                          "СПИ: ${ip.spi}",
-                                        ),
-                                      ],
+                                  return Container(
+                                    width: 220,
+                                    child: NeumorphicButton(
+                                      margin: EdgeInsets.only(right: 8, bottom: 8),
+                                      style: NeumorphicStyle(
+                                          shape: NeumorphicShape.flat,
+                                          lightSource:
+                                              Provider.of<Settings>(context)
+                                                      .isDarkMode
+                                                  ? LightSource.bottomRight
+                                                  : LightSource.topLeft,
+                                          depth: 2,
+                                          color: theme.buttonColor),
+                                      onPressed: () {
+                                        var ipDetail = ip.numberIP.toString();
+                                        provider.setNumID(
+                                            numForSetNumID: ipDetail);
+                                        print(ipDetail);
+                                        Navigator.of(context)
+                                            .pushNamed('ipDetail');
+                                      },
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(Entypo.archive, color: theme.accentColor),
+                                              SizedBox(width: 8,),
+                                              Expanded(child: Text("${ip.regNumberIP}")),
+                                            ],
+                                          ),
+                                          Text("${ip.claimant}"),
+                                          // Text("${ip.codesVKSP}"),
+                                          Text(
+                                              "Ул. ${ip.street}, д. ${ip.house} кв. ${ip.apartment}"),
+                                          Text(
+                                            "Долг: ${ip.amountDebt}",
+                                          ),
+                                          Text(
+                                            "Остаток: ${ip.remainingDebt}",
+                                          ),
+                                          // Text(
+                                          //   "СПИ: ${ip.spi}",
+                                          // ),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 }),
                           ),
-                        ),
+                        
                       ],
                     ),
                   );

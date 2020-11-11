@@ -144,7 +144,9 @@ class InitialCubit extends Cubit<InitialState> {
     fetchingAvtoList.forEach((element) {
       if (element.debitor.toLowerCase().contains(data) ||
           element.debitorVehicles.toLowerCase().contains(data) ||
-          element.searchString.toLowerCase().contains(data)) {
+          element.searchString.toLowerCase().contains(data) ||
+          element.modelTS.toLowerCase().contains(data) ||
+          element.numberTS.toLowerCase().contains(data)) {
         searchAvto.add(element);
       }
     });
@@ -194,7 +196,9 @@ class InitialCubit extends Cubit<InitialState> {
           element.defendants.toLowerCase().contains(data) ||
           element.street.toLowerCase().contains(data) ||
           element.house.toLowerCase().contains(data) ||
-          element.apartment.toLowerCase().contains(data)) {
+          element.apartment.toLowerCase().contains(data) ||
+          element.courtCode.toLowerCase().contains(data) ||
+          element.hearingCourtCode.toLowerCase().contains(data)) {
         searchLOW.add(element);
       }
     });

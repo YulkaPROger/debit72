@@ -1,4 +1,5 @@
 import 'package:debit72/theme/settings.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
@@ -58,19 +59,25 @@ class _JOWListState extends State<JOWList> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Дата: ${state.loadedDataInfo[index].date}",
+                        Row(
+                          children: [
+                            Icon(AntDesign.calendar, color: theme.accentColor),
+                            SizedBox(width: 8,),
+                            Text(
+                              "Дата: ${state.loadedDataInfo[index].date}",
+                            ),
+                          ],
                         ),
-                        Text("Суд: \n${state.loadedDataInfo[index].court}"),
+                        Text("Суд: ${state.loadedDataInfo[index].courtCode}"),
                         state.loadedDataInfo[index].court ==
                                 state.loadedDataInfo[index].hearingCourt
                             ? Container()
                             : Text(
-                                "Суд, рассматривающий заявление: \n${state.loadedDataInfo[index].hearingCourt}"),
+                                "Суд, рассматривающий заявление: ${state.loadedDataInfo[index].hearingCourtCode}"),
                         Text(
-                            "Взыскатель: \n${state.loadedDataInfo[index].claimant}"),
+                            "${state.loadedDataInfo[index].claimant}"),
                         Text(
-                            "Ответчик(и): \n${state.loadedDataInfo[index].defendants}"),
+                            "Должник(и): \n${state.loadedDataInfo[index].defendants}"),
                         Text(
                             "Ул. ${state.loadedDataInfo[index].street}, д. ${state.loadedDataInfo[index].house} кв. ${state.loadedDataInfo[index].apartment}"),
                       ],

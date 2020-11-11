@@ -8,8 +8,10 @@ class JOW {
   String street;
   String house;
   String apartment;
+  String courtCode;
+  String hearingCourtCode;
 
-  JOW({this.date, this.court, this.hearingCourt, this.claimant, this.defendants, this.street, this.house, this.apartment});
+  JOW({this.date, this.court, this.hearingCourt, this.claimant, this.defendants, this.street, this.house, this.apartment, this.courtCode, this.hearingCourtCode});
 
   factory JOW.fromJson(Map<String, dynamic> json){
 
@@ -22,6 +24,8 @@ class JOW {
       street: json['ФондРодитель'],
       house: json['Фонд'],
       apartment: json['КвартираФонда'],
+      courtCode: json['СудКод'],
+      hearingCourtCode: json['СудРассмЗаявлКод']
     );
 
   }
