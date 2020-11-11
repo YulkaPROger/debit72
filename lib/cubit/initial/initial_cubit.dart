@@ -17,22 +17,7 @@ class InitialCubit extends Cubit<InitialState> {
 
   List<IP> fetchingIP;
 
-  // Future<void> loadingIP() async {
-  //   try {
-  //     emit(IpLoading());
-  //     if (fetchingIP != null) {
-  //       print("Данные загружены ранее");
-  //       emit(IpLoaded(loadedData: fetchingIP));
-  //     } else {
-  //       fetchIP();
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //     emit(IpError());
-  //   }
-  // }
   Future<void> fetchIPfromJSON() async {
-
     try {
       emit(IpLoading());
 
@@ -116,19 +101,6 @@ class InitialCubit extends Cubit<InitialState> {
 
   List<AvtoList> fetchingAvtoList;
 
-  // Future<void> loadingAvtoList() async {
-  //   try {
-  //     emit(AvtoLoading());
-  //     if (fetchingAvtoList != null) {
-  //       emit(AvtoLoaded(loadedDataInfo: fetchingAvtoList));
-  //     } else
-  //       fetchAvtoList();
-  //   } catch (e) {
-  //     // print(e);
-  //     emit(AvtoError());
-  //   }
-  // }
-
   Future<void> fetchAvtoList() async {
     RepositoryAvtoList repositoryAvto = RepositoryAvtoList();
     try {
@@ -165,17 +137,18 @@ class InitialCubit extends Cubit<InitialState> {
 
   List<JOW> fetchingJow;
 
-  // Future<void> loadingJOWs() async {
-  //   try {
-  //     emit(JOWLoading());
-  //     if (fetchingJow != null) {
-  //       emit(JOWLoaded(loadedDataInfo: fetchingJow));
-  //     } else
-  //       fetchJOWs();
-  //   } catch (e) {
-  //     emit(JOWError());
-  //   }
-  // }
+  Future<void> fetchJOWsFromJSON() async {
+    RepositoryJOW repositoryJOW = RepositoryJOW();
+    try {
+      emit(JOWLoading());
+      final List<JOW> _loadedLOW = await repositoryJOW
+          .getAllJudicalOrdersJSON()
+          .then((value) => fetchingJow = value);
+      emit(JOWLoaded(loadedDataInfo: _loadedLOW));
+    } catch (e) {
+      emit(JOWError());
+    }
+  }
 
   Future<void> fetchJOWs() async {
     RepositoryJOW repositoryJOW = RepositoryJOW();

@@ -25,6 +25,8 @@ class RepositoryIPDetail extends Repository {
 
 class RepositoryJOW extends Repository {
   Future<List<JOW>> getAllJudicalOrders() => _providerApi.getJudicalOrderWork();
+  Future<List<JOW>> getAllJudicalOrdersJSON() =>
+      _providerApi.getJudicalOrderWorkJSON();
 }
 
 class RepositoryInfo extends Repository {

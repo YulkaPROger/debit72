@@ -11,7 +11,6 @@ import '../models/previous_info.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/services.dart' show rootBundle;
 
 class Api {
   //Получаем данные Исполнительного производства с сервера
@@ -34,7 +33,7 @@ class Api {
     }
   }
 
-  //Получаем данные Исполнительного производства из JSON
+  //Получаем данные Исполнительного производства из JSON (локальный файл)
   Future<List<IP>> getAllIDfromJSON() async {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String appDocPath = appDocDir.path;
@@ -52,7 +51,7 @@ class Api {
     }
   }
 
-  //Получаем данные Исполнительного производства с сервера и записывае в JSON
+  //Получаем данные Исполнительного производства с сервера и записываем в JSON
   Future<List<IP>> getAllID() async {
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
@@ -71,16 +70,48 @@ class Api {
       String fileContent = json.encode(body);
       file.writeAsString(fileContent);
 
-
       final List<dynamic> ipJSON = json.decode(body);
       return ipJSON.map((json) => IP.fromJson(json)).toList();
-
     } else {
       throw Exception('Error fetching judical order work');
     }
   }
 
-  //Получаем данные Судебно-приказной работы с сервера
+  //Получаем данные Судебно-приказной работы с локального хранилища
+  Future<List<JOW>> getJudicalOrderWorkJSON() async {
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String appDocPath = appDocDir.path;
+    File file = File("$appDocPath/jow.json");
+    String fileContent = await file.readAsString();
+    String jsonResponse = json.decode(fileContent);
+    print(jsonResponse.runtimeType);
+
+    // String responseBody = await rootBundle.loadString('assets/JSON/ip.json');
+    if (fileContent.toString() != null) {
+      final List<dynamic> judicalJSON = json.decode(jsonResponse);
+      return judicalJSON.map((json) => JOW.fromJson(json)).toList();
+    } else {
+      throw Exception('Error fetching judical order work');
+    }
+  }
+  //   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  //   final SharedPreferences prefs = await _prefs;
+  //   final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
+
+  //   final response = await http
+  //       .get('http://109.194.162.125/debit/hs/debit72/PostJSON?APIkey=$apiKey');
+  //   if (response.statusCode == 200) {
+  //     //декодировать в UTF-8 иначе приходят каракули
+  //     String body = utf8.decode(response.bodyBytes);
+  //     // print(body);
+  //     final List<dynamic> judicalJSON = json.decode(body);
+  //     return judicalJSON.map((json) => JOW.fromJson(json)).toList();
+  //   } else {
+  //     throw Exception('Error fetching judical order work');
+  //   }
+  // }
+
+  //Получаем данные Судебно-приказной работы с сервера и записываем в локальный файл
   Future<List<JOW>> getJudicalOrderWork() async {
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
@@ -91,6 +122,13 @@ class Api {
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
       String body = utf8.decode(response.bodyBytes);
+
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      String appDocPath = appDocDir.path;
+      File file = await File("$appDocPath/jow.json").create();
+      String fileContent = json.encode(body);
+      file.writeAsString(fileContent);
+
       // print(body);
       final List<dynamic> judicalJSON = json.decode(body);
       return judicalJSON.map((json) => JOW.fromJson(json)).toList();

@@ -17,7 +17,7 @@ class _JOWListState extends State<JOWList> {
   void initState() {
     super.initState();
     final InitialCubit jowCubit = context.bloc<InitialCubit>();
-    jowCubit.fetchJOWs();
+    jowCubit.fetchJOWsFromJSON();
   }
 
   @override
