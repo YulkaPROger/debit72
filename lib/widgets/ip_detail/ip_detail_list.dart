@@ -149,25 +149,42 @@ class _IPListDetailState extends State<IPListDetail> {
                               Text(
                                 "Адрес должника ул. ${ip.debitorStreet}, д. ${ip.debitorHouse}, кв. ${ip.debitorApartment}",
                               ),
+                              Text(
+                                "Адрес факт: ${ip.adressFact}",
+                              ),
                             ],
                           ),
-                          leading: Icon(
-                            Icons.person,
-                            color: theme.accentColor,
+                          leading: Column(
+                            children: [
+                              Icon(
+                                Icons.person,
+                                color: theme.accentColor,
+                              ),
+                              Icon(
+                                ip.dead == "Нет"
+                                    ? Icons.check_circle
+                                    : Foundation.skull,
+                                color: ip.debitorPensioner == "Нет"
+                                    ? theme.accentColor
+                                    : Colors.redAccent[400],
+                              ),
+                              
+                            ],
                           ),
                           trailing: Column(
                             children: [
                               Text(
-                                "Пенсионер:",
+                                "Пенc:",
                               ),
                               Icon(
                                 ip.debitorPensioner != "Нет"
                                     ? Icons.check_circle
                                     : Icons.close,
                                 color: ip.debitorPensioner != "Нет"
-                                    ? Colors.teal
+                                    ? theme.accentColor
                                     : Colors.redAccent[400],
-                              )
+                              ),
+                              
                             ],
                           ),
                         ),
@@ -193,7 +210,7 @@ class _IPListDetailState extends State<IPListDetail> {
                                           width: 300,
                                           child: ListTile(
                                             leading: Icon(Ionicons.ios_car,
-                                                color: theme.accentColor),
+                                                color: ip.avto[index].arrested=="false"?theme.accentColor: Colors.redAccent),
                                             title: Text(
                                               "${ip.avto[index].avto}",
                                             ),
@@ -283,7 +300,7 @@ class _IPListDetailState extends State<IPListDetail> {
                                           child: ListTile(
                                             leading: Icon(
                                               Ionicons.ios_home,
-                                              color: theme.accentColor,
+                                              color: ip.property[index].arrested=="false"? theme.accentColor:Colors.redAccent,
                                             ),
                                             title: Column(
                                               mainAxisSize: MainAxisSize.max,
@@ -377,7 +394,7 @@ class _IPListDetailState extends State<IPListDetail> {
                                           width: 300,
                                           child: ListTile(
                                             leading: Icon(MaterialIcons.work,
-                                                color: theme.accentColor),
+                                                color: ip.employer[index].foreclosure=="false"?theme.accentColor:Colors.redAccent),
                                             title: Text(
                                               "Наименование: ${ip.employer[index].employerName}",
                                             ),

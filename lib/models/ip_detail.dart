@@ -35,6 +35,9 @@ class IPDetail {
   String debitorBirthday;
   String debitorPensioner;
   String debitorBirthplace;
+  String dead;
+  String ls;
+  String adressFact;
   List<Avto> avto;
   List<Property> property;
   List<Busines> busines;
@@ -72,6 +75,9 @@ class IPDetail {
       this.debitorBirthday,
       this.debitorPensioner,
       this.debitorBirthplace,
+      this.dead,
+      this.ls,
+      this.adressFact,
       this.avto,
       this.property,
       this.busines,
@@ -133,6 +139,9 @@ class IPDetail {
         debitorBirthday: jsonMap['ДолжникДР'],
         debitorPensioner: jsonMap['ДолжникПенсионер'],
         debitorBirthplace: jsonMap['ДолжникМестоРождения'],
+        dead: jsonMap['Умер'],
+        ls: jsonMap['ЛицевойСчет'],
+        adressFact: jsonMap['ДолжникАдресФактический'],
         avto: avtoList,
         property: propList,
         busines: businesList,

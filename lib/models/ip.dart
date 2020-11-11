@@ -10,6 +10,9 @@ class IP {
   String bailiff;
   String bailiffDepartment;
   String link;
+  String regNumberIP;
+  String sumDebt;
+  String remainderDebt;
 
   IP(
       {this.numberID,
@@ -21,7 +24,10 @@ class IP {
       this.apartment,
       this.bailiff,
       this.bailiffDepartment,
-      this.link});
+      this.link,
+      this.regNumberIP,
+      this.sumDebt,
+      this.remainderDebt});
 
   factory IP.fromJson(Map<String, dynamic> json) {
     return IP(
@@ -34,7 +40,10 @@ class IP {
       apartment: json['КвартираФонда'],
       bailiffDepartment: json['КодыВКСП'],
       bailiff: json['СПИ'],
-      link: json['Номер']
+      link: json['Номер'],
+      regNumberIP: json['РегНомерИП'],
+      sumDebt: json['ОбщаяСуммаДолга'],
+      remainderDebt: json['ОстатокДолга']
       
     );
   }

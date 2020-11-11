@@ -1,8 +1,11 @@
 class Property {
   String propertyClaimant;
-  Property({this.propertyClaimant});
+  String arrested;
+  Property({this.propertyClaimant, this.arrested});
 
   factory Property.fromJson(Map<String, dynamic> json) {
-    return Property(propertyClaimant: json['ОбъектыНедвижимостиДолжника']);
+    return Property(
+        propertyClaimant: json['ОбъектыНедвижимостиДолжника'],
+        arrested: json['Аретовано']);
   }
 }

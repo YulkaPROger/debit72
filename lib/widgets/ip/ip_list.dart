@@ -70,22 +70,27 @@ class _IPListState extends State<IPList> {
                         Text(
                           "НомерИД: ${state.loadedData[index].numberID}",
                         ),
-                        Text(
-                            "НомерДела: \n${state.loadedData[index].caseNumber}"),
+                    
                         Text(
                             "Должник: \n${state.loadedData[index].defendants}"),
                         Text(
-                            "Взыскатель: \n${state.loadedData[index].claimant}"),
+                            "${state.loadedData[index].claimant}"),
                         Text(
                             "Ул. ${state.loadedData[index].street}, д. ${state.loadedData[index].house} кв. ${state.loadedData[index].apartment}"),
                         Text(
-                          "КодыВКСП: ${state.loadedData[index].bailiffDepartment}",
+                          "${state.loadedData[index].bailiffDepartment}",
                         ),
                         Text(
                           "СПИ: ${state.loadedData[index].bailiff}",
                         ),
                         Text(
-                          "Ccылка: ${state.loadedData[index].link}",
+                          "Рег номер ИП: ${state.loadedData[index].regNumberIP}",
+                        ),
+                        Text(
+                          "Общая сумма долга: ${state.loadedData[index].sumDebt} руб.",
+                        ),
+                        Text(
+                          "Остаток долга: ${state.loadedData[index].remainderDebt} руб.",
                         ),
                       ],
                     ),

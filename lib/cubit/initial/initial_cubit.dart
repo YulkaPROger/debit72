@@ -53,7 +53,7 @@ class InitialCubit extends Cubit<InitialState> {
     List<IP> searchIP = List<IP>();
 
     fetchingIP.forEach((element) {
-      if (element.numberID.toLowerCase().contains(data) ||
+      if (
           element.caseNumber.toLowerCase().contains(data) ||
           element.defendants.toLowerCase().contains(data) ||
           element.claimant.toLowerCase().contains(data) ||
