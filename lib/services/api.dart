@@ -146,17 +146,11 @@ class Api {
 
     final response = await http.get(
         'http://109.194.162.125/debit/hs/debit72/linkIP?APIkey=$apiKey&link=$intID');
-    // print(response.body);
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
       String body = utf8.decode(response.bodyBytes);
-      // print("body");
-      // print(body);
+
       final List<dynamic> ipDetail = json.decode(body);
-      // print("ipDetail");
-      // print(ipDetail);
-      // print("${ipDetail[0]}");
-      // print(ipDetail[0]);
 
       return ipDetail.map((json) => IPDetail.fromJson(json)).toList();
     } else {
@@ -164,6 +158,43 @@ class Api {
     }
   }
 
+//Получаем данные авто с сервера и записываем в локальный файл
+  Future<List<AvtoList>> getAvtoListFromJSON() async {
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String appDocPath = appDocDir.path;
+    File file = File("$appDocPath/avto.json");
+    String fileContent = await file.readAsString();
+    String jsonResponse = json.decode(fileContent);
+    print(jsonResponse.runtimeType);
+
+    // String responseBody = await rootBundle.loadString('assets/JSON/ip.json');
+    if (fileContent.toString() != null) {
+      final List<dynamic> avtoList = json.decode(jsonResponse);
+      return avtoList.map((json) => AvtoList.fromJson(json)).toList();
+    } else {
+      throw Exception('Error fetching judical order work');
+    }
+  }
+//     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+//     final SharedPreferences prefs = await _prefs;
+//     final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
+
+//     final response = await http
+//         .get('http://109.194.162.125/debit/hs/debit72/avtoAll?APIkey=$apiKey');
+//     // print(response.body);
+//     if (response.statusCode == 200) {
+//       //декодировать в UTF-8 иначе приходят каракули
+//       String body = utf8.decode(response.bodyBytes);
+
+//       final List<dynamic> avtoList = json.decode(body);
+//       return avtoList.map((json) => AvtoList.fromJson(json)).toList();
+//     } else {
+//       throw Exception('Error fetching judical order work');
+//     }
+//   }
+// }
+
+//Получаем данные авто с сервера и записываем в локальный файл
   Future<List<AvtoList>> getAvtoList() async {
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
@@ -175,14 +206,14 @@ class Api {
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
       String body = utf8.decode(response.bodyBytes);
-      // print("body");
-      // print(body);
-      final List<dynamic> avtoList = json.decode(body);
-      // print("ipDetail");
-      // print(avtoList);
-      // print("${ipDetail[0]}");
-      // print(ipDetail[0]);
 
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      String appDocPath = appDocDir.path;
+      File file = await File("$appDocPath/avto.json").create();
+      String fileContent = json.encode(body);
+      file.writeAsString(fileContent);
+
+      final List<dynamic> avtoList = json.decode(body);
       return avtoList.map((json) => AvtoList.fromJson(json)).toList();
     } else {
       throw Exception('Error fetching judical order work');

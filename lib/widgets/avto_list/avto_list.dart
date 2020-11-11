@@ -18,7 +18,7 @@ class _AvtoListState extends State<AvtoList> {
   void initState() {
     super.initState();
     final InitialCubit jowCubit = context.bloc<InitialCubit>();
-    jowCubit.fetchAvtoList();
+    jowCubit.fetchAvtoListFromJSON();
   }
 
   @override
@@ -73,8 +73,10 @@ class _AvtoListState extends State<AvtoList> {
                         Text(
                           "Должник: ${state.loadedDataInfo[index].debitor}",
                         ),
-                        state.loadedDataInfo[index].apartment==" "?Text(
-                            "Ул. ${state.loadedDataInfo[index].street}, д. ${state.loadedDataInfo[index].house} кв. ${state.loadedDataInfo[index].apartment}"):Container(),
+                        state.loadedDataInfo[index].apartment == " "
+                            ? Text(
+                                "Ул. ${state.loadedDataInfo[index].street}, д. ${state.loadedDataInfo[index].house} кв. ${state.loadedDataInfo[index].apartment}")
+                            : Container(),
                         state.loadedDataInfo[index].arestoredTS != "Нет"
                             ? Text(
                                 "ТС арестовано: ${state.loadedDataInfo[index].arestoredTS}, Дата ареста ТС: ${state.loadedDataInfo[index].dateOfArrest}, Статус реализации: ${state.loadedDataInfo[index].salesStatus}, ТС реализовано: ${state.loadedDataInfo[index].tsRealized}",

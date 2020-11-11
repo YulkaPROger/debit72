@@ -101,6 +101,23 @@ class InitialCubit extends Cubit<InitialState> {
 
   List<AvtoList> fetchingAvtoList;
 
+  Future<void> fetchAvtoListFromJSON() async {
+    RepositoryAvtoList repositoryAvto = RepositoryAvtoList();
+    try {
+      emit(AvtoLoading());
+      final List<AvtoList> _loadedInfo = await repositoryAvto
+          .getAvtoListJSON()
+          .then((value) => fetchingAvtoList = value);
+      // print("## cubit ============ _loadedInfo");
+      // print(_loadedInfo);
+      // print(_loadedInfo.runtimeType);
+      emit(AvtoLoaded(loadedDataInfo: _loadedInfo));
+    } catch (e) {
+      // print(e);
+      emit(AvtoError());
+    }
+  }
+
   Future<void> fetchAvtoList() async {
     RepositoryAvtoList repositoryAvto = RepositoryAvtoList();
     try {

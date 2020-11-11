@@ -35,4 +35,6 @@ class RepositoryInfo extends Repository {
 
 class RepositoryAvtoList extends Repository {
   Future<List<AvtoList>> getAvtoList() => _providerApi.getAvtoList();
+  Future<List<AvtoList>> getAvtoListJSON() =>
+      _providerApi.getAvtoListFromJSON();
 }
