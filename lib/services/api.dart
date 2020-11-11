@@ -6,9 +6,9 @@ import '../models/ip_detail.dart';
 import '../models/judicial_order_work.dart';
 import '../models/previous_info.dart';
 
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/services.dart' show rootBundle;
 
 class Api {
   //Получаем данные Исполнительного производства с сервера
@@ -26,6 +26,29 @@ class Api {
       // print(body);
       final List<dynamic> infoJSON = json.decode(body);
       return infoJSON.map((json) => Info.fromJson(json)).toList();
+    } else {
+      throw Exception('Error fetching judical order work');
+    }
+  }
+
+  //Получаем данные Исполнительного производства из JSON
+  Future<List<IP>> getAllIDfromJSON() async {
+    // Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    // final SharedPreferences prefs = await _prefs;
+    // final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
+
+    // final response = await http
+    //     .get('http://109.194.162.125/debit/hs/debit72/IP?APIkey=$apiKey');
+
+    String responseBody = await rootBundle.loadString('JSON/ip.json');
+    var response = await jsonDecode(responseBody);
+    print(response);
+    if (response.toString() != null) {
+      //декодировать в UTF-8 иначе приходят каракули
+      String body = utf8.decode(response.bodyBytes);
+      // print(body);
+      final List<dynamic> ipJSON = json.decode(body);
+      return ipJSON.map((json) => IP.fromJson(json)).toList();
     } else {
       throw Exception('Error fetching judical order work');
     }

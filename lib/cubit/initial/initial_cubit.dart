@@ -8,7 +8,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-
 part 'initial_state.dart';
 
 class InitialCubit extends Cubit<InitialState> {
@@ -32,6 +31,19 @@ class InitialCubit extends Cubit<InitialState> {
   //     emit(IpError());
   //   }
   // }
+  Future<void> fetchIPfromJSON() async {
+    try {
+      emit(IpLoading());
+
+      final List<IP> _loadedIP = await repository
+          .getAllIDFromServer()
+          .then((value) => fetchingIP = value);
+      emit(IpLoaded(loadedData: _loadedIP));
+    } catch (e) {
+      print(e);
+      emit(IpError());
+    }
+  }
 
   Future<void> fetchIP() async {
     try {
@@ -53,8 +65,7 @@ class InitialCubit extends Cubit<InitialState> {
     List<IP> searchIP = List<IP>();
 
     fetchingIP.forEach((element) {
-      if (
-          element.caseNumber.toLowerCase().contains(data) ||
+      if (element.caseNumber.toLowerCase().contains(data) ||
           element.defendants.toLowerCase().contains(data) ||
           element.claimant.toLowerCase().contains(data) ||
           element.street.toLowerCase().contains(data) ||
