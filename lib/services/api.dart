@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import '../models/claimant.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../models/avto_list.dart';
@@ -94,22 +95,6 @@ class Api {
       throw Exception('Error fetching judical order work');
     }
   }
-  //   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  //   final SharedPreferences prefs = await _prefs;
-  //   final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
-
-  //   final response = await http
-  //       .get('http://109.194.162.125/debit/hs/debit72/PostJSON?APIkey=$apiKey');
-  //   if (response.statusCode == 200) {
-  //     //декодировать в UTF-8 иначе приходят каракули
-  //     String body = utf8.decode(response.bodyBytes);
-  //     // print(body);
-  //     final List<dynamic> judicalJSON = json.decode(body);
-  //     return judicalJSON.map((json) => JOW.fromJson(json)).toList();
-  //   } else {
-  //     throw Exception('Error fetching judical order work');
-  //   }
-  // }
 
   //Получаем данные Судебно-приказной работы с сервера и записываем в локальный файл
   Future<List<JOW>> getJudicalOrderWork() async {
@@ -175,24 +160,7 @@ class Api {
       throw Exception('Error fetching judical order work');
     }
   }
-//     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-//     final SharedPreferences prefs = await _prefs;
-//     final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
 
-//     final response = await http
-//         .get('http://109.194.162.125/debit/hs/debit72/avtoAll?APIkey=$apiKey');
-//     // print(response.body);
-//     if (response.statusCode == 200) {
-//       //декодировать в UTF-8 иначе приходят каракули
-//       String body = utf8.decode(response.bodyBytes);
-
-//       final List<dynamic> avtoList = json.decode(body);
-//       return avtoList.map((json) => AvtoList.fromJson(json)).toList();
-//     } else {
-//       throw Exception('Error fetching judical order work');
-//     }
-//   }
-// }
 
 //Получаем данные авто с сервера и записываем в локальный файл
   Future<List<AvtoList>> getAvtoList() async {
@@ -219,4 +187,27 @@ class Api {
       throw Exception('Error fetching judical order work');
     }
   }
+
+  //Получаем данные взыскателей с сервера и записываем в локальный файл
+  Future<List<Claimant>> getClaimantList() async {
+    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
+
+    final response = await http
+        .get('http://109.194.162.125/debit/hs/debit72/debitor?APIkey=$apiKey');
+    print(response.body);
+    if (response.statusCode == 200) {
+      //декодировать в UTF-8 иначе приходят каракули
+      String body = utf8.decode(response.bodyBytes);
+
+      final List<dynamic> claimantList = json.decode(body);
+      return claimantList.map((json) => Claimant.fromJson(json)).toList();
+    } else {
+      throw Exception('Error fetching claimant');
+    }
+  }
 }
+
+
+

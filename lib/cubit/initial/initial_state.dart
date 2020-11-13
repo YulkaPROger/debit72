@@ -61,3 +61,16 @@ class JOWLoaded extends InitialState {
 }
 
 class JOWError extends InitialState {}
+
+
+//Стэйты для взыскателей 
+class InitialClaimant extends InitialState {}
+
+class LoadingClaimant extends InitialState {}
+
+class LoadedClaimant extends InitialState {
+  List<Claimant> loadedDataInfo;
+  LoadedClaimant({@required this.loadedDataInfo}) : assert(loadedDataInfo != null);
+}
+
+class ErrorClaimant extends InitialState {}

@@ -1,4 +1,5 @@
 import 'package:debit72/theme/settings.dart';
+import 'package:debit72/widgets/avto_list/countdown_painter.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -24,6 +25,9 @@ class _AvtoListState extends State<AvtoList> {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     var theme = Theme.of(context);
     ProviderModel provider = Provider.of(context);
     return BlocBuilder<InitialCubit, InitialState>(
@@ -44,6 +48,7 @@ class _AvtoListState extends State<AvtoList> {
         }
 
         if (state is AvtoLoaded) {
+
           return Container(
             padding: const EdgeInsets.all(12.0),
             child: ListView.builder(
@@ -73,16 +78,12 @@ class _AvtoListState extends State<AvtoList> {
                             ),
                             Expanded(
                               child: Text(
-                            "Модель: ${state.loadedDataInfo[index].modelTS}\nГос номер: ${state.loadedDataInfo[index].numberTS}"),
+                                  "Модель: ${state.loadedDataInfo[index].modelTS}\nГос номер: ${state.loadedDataInfo[index].numberTS}"),
                               // Text(
                               //     "${state.loadedDataInfo[index].debitorVehicles}"),
                             ),
                           ],
                         ),
-                        Divider(
-                          color: theme.accentColor,
-                        ),
-                        
                         state.loadedDataInfo[index].ammountTS != ""
                             ? Row(
                                 children: [
@@ -101,6 +102,10 @@ class _AvtoListState extends State<AvtoList> {
                                 ],
                               )
                             : Container(),
+                        Divider(
+                          color: theme.accentColor,
+                        ),
+                        
                         Row(
                           children: [
                             Icon(
@@ -136,21 +141,24 @@ class _AvtoListState extends State<AvtoList> {
                                 "ИП, по которому арестовано ТС: ${state.loadedDataInfo[index].ipArested}",
                               )
                             : Container(),
-                        SizedBox(height: 16,),
+                        SizedBox(
+                          height: 16,
+                        ),
                         Container(
-                            height: 160,
-                           
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount:
-                                    state.loadedDataInfo[index].ipList.length,
-                                itemBuilder: (context, i) {
-                                  var ip =
-                                      state.loadedDataInfo[index].ipList[i];
-                                  return Container(
-                                    width: 220,
+                          height: 160,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount:
+                                  state.loadedDataInfo[index].ipList.length,
+                              itemBuilder: (context, i) {
+                                var ip = state.loadedDataInfo[index].ipList[i];
+                                return Stack(children: [
+                                  Container(
+                                    width: 230,
                                     child: NeumorphicButton(
-                                      margin: EdgeInsets.only(right: 8, bottom: 8),
+                                      margin:
+                                          EdgeInsets.only(right: 8, bottom: 8),
+                                      padding: EdgeInsets.only(left: 16),
                                       style: NeumorphicStyle(
                                           shape: NeumorphicShape.flat,
                                           lightSource:
@@ -168,20 +176,12 @@ class _AvtoListState extends State<AvtoList> {
                                         Navigator.of(context)
                                             .pushNamed('ipDetail');
                                       },
-                                      padding: const EdgeInsets.all(12.0),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Row(
-                                            children: [
-                                              Icon(Entypo.archive, color: theme.accentColor),
-                                              SizedBox(width: 8,),
-                                              Expanded(child: Text("${ip.regNumberIP}")),
-                                            ],
-                                          ),
+                                          Text("${ip.regNumberIP}"),
                                           Text("${ip.claimant}"),
-                                          // Text("${ip.codesVKSP}"),
                                           Text(
                                               "Ул. ${ip.street}, д. ${ip.house} кв. ${ip.apartment}"),
                                           Text(
@@ -190,16 +190,58 @@ class _AvtoListState extends State<AvtoList> {
                                           Text(
                                             "Остаток: ${ip.remainingDebt}",
                                           ),
-                                          // Text(
-                                          //   "СПИ: ${ip.spi}",
-                                          // ),
                                         ],
                                       ),
                                     ),
-                                  );
-                                }),
-                          ),
-                        
+                                  ),
+                                  Container(
+                                    height: 152,
+                                    width: 10,
+                                    decoration: BoxDecoration(
+                                        color: theme.accentColor,
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(8),
+                                            bottomLeft: Radius.circular(8))),
+                                  ),
+                                  Positioned(
+                                    bottom: 10.0,
+                                    right: 5.0,
+                                    child: CustomPaint(
+                                      foregroundPainter: CountdownPainter(
+                                        bgColor: Colors.transparent,
+                                        lineColor: (double.parse(ip.remainingDebt)/double.parse(ip.amountDebt))<0?Colors.redAccent:theme.accentColor,
+                                        percent: double.parse(ip.remainingDebt)/double.parse(ip.amountDebt),
+                                        width: 4.0,
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(20.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text(
+                                              _getPersent(ip.remainingDebt, ip.amountDebt),
+                                              style: TextStyle(
+                                                color: (double.parse(ip.remainingDebt)/double.parse(ip.amountDebt))<0?Colors.redAccent:theme.accentColor,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            Text(
+                                              "остаток",
+                                              style: TextStyle(
+                                                color: (double.parse(ip.remainingDebt)/double.parse(ip.amountDebt))<0?Colors.redAccent:theme.accentColor,
+                                                fontSize: 10.0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ]);
+                              }),
+                        ),
                       ],
                     ),
                   );
@@ -215,5 +257,14 @@ class _AvtoListState extends State<AvtoList> {
         return null;
       },
     );
+  }
+    _getPersent(String num1, String num2) {
+    
+      double num3 = double.parse(num1)/double.parse(num2);
+      var num4 = double.parse(num3.toString()).toStringAsFixed(2);
+      var num5 = double.parse(num4)*100;
+      var num6 = double.parse(num5.toString()).toStringAsFixed(0);
+
+    return (num6).toString() + "%";
   }
 }

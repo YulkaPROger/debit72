@@ -1,52 +1,41 @@
+import 'package:debit72/widgets/claimant/claimant_list.dart';
+
 import '../cubit/initial/initial_cubit.dart';
 import '../services/repo.dart';
-import '../widgets/avto_list/search_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
-import '../widgets/avto_list/action_button_avto.dart';
-import '../widgets/avto_list/avto_list.dart';
-import '../widgets/avto_list/result.dart';
-
-class Avto extends StatefulWidget {
+class Claimant extends StatefulWidget {
   @override
-  _AvtoState createState() => _AvtoState();
+  _ClaimantState createState() => _ClaimantState();
 }
 
-class _AvtoState extends State<Avto> {
+class _ClaimantState extends State<Claimant> {
   final RepositoryIP repository = RepositoryIP();
   
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    final GlobalKey<ScaffoldState> _scaffoldKeyAvto =
-        GlobalKey<ScaffoldState>();
+    // final GlobalKey<ScaffoldState> _scaffoldKeyAvto =
+    //     GlobalKey<ScaffoldState>();
 
     return BlocProvider<InitialCubit>(
       create: (context) => InitialCubit(repository: repository),
       child: Scaffold(
-        key: _scaffoldKeyAvto,
+        // key: _scaffoldKeyAvto,
         appBar: AppBar(
           backgroundColor: theme.buttonColor,
           iconTheme: IconThemeData(
             color: theme.accentColor,
           ),
-          title: SearchFieldAvto(),
-        ),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            RowResultsAvto(),
-            ActionButtonAvto(),
-          ],
+          title: Text("Взыскатели"),
         ),
         body: SafeArea(
           child: Container(
             child: Column(
               children: [
-                Expanded(child: AvtoList()),
+                Expanded(child: ClaimantList()),
               ],
             ),
           ),

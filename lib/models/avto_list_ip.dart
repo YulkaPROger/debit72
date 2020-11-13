@@ -3,24 +3,26 @@ class AvtoIPList {
   String regNumberIP;
   String amountDebt;
   String remainingDebt;
-  String codesVKSP;
-  String spi;
+  // String codesVKSP;
+  // String spi;
   String claimant;
   String apartment;
   String house;
   String street;
 
   AvtoIPList(
-      {this.numberIP,
+      {
+      this.numberIP,
       this.regNumberIP,
       this.amountDebt,
       this.remainingDebt,
-      this.codesVKSP,
-      this.spi,
+      // this.codesVKSP,
+      // this.spi,
       this.claimant,
       this.apartment,
       this.house,
-      this.street});
+      this.street
+      });
 
   factory AvtoIPList.fromJson(Map<String, dynamic> jsonMap) {
     return AvtoIPList(
@@ -28,11 +30,12 @@ class AvtoIPList {
         regNumberIP: jsonMap['РегНомерИП'],
         amountDebt: jsonMap['ОбщаяСуммаДолга'],
         remainingDebt: jsonMap['ОстатокДолга'],
-        codesVKSP: jsonMap['КодыВКСП'],
-        spi: jsonMap['СПИ'],
+        // codesVKSP: jsonMap['КодыВКСП'],
+        // spi: jsonMap['СПИ'],
         claimant: jsonMap['Взыскатель'],
         apartment: jsonMap['КвартираФонда'],
         house: jsonMap['КвартираФондаВладелец'],
-        street: jsonMap['КвартираФондаВладелецРодитель']);
+        street: jsonMap['КвартираФондаВладелецРодитель']
+        );
   }
 }

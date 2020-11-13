@@ -1,3 +1,5 @@
+import '../models/claimant.dart';
+
 import '../models/avto_list.dart';
 import '../models/ip.dart';
 import '../models/judicial_order_work.dart';
@@ -37,4 +39,8 @@ class RepositoryAvtoList extends Repository {
   Future<List<AvtoList>> getAvtoList() => _providerApi.getAvtoList();
   Future<List<AvtoList>> getAvtoListJSON() =>
       _providerApi.getAvtoListFromJSON();
+}
+
+class RepositoryClaimantList extends Repository {
+  Future<List<Claimant>> getClaimantList() => _providerApi.getClaimantList();
 }

@@ -71,6 +71,7 @@ class _PreviousInfoState extends State<PreviousInfo> {
                         text:
                             "Общая сумма долгов: \n${numFormat(info.totalAmountDebt)}",
                         color: Colors.redAccent,
+                        
                       ),
                       Points(
                         text:
@@ -205,7 +206,7 @@ class Points extends StatelessWidget {
         SizedBox(
           width: 10,
         ),
-        Text(text)
+        Text(text, style: TextStyle(fontSize: 10),)
       ],
     );
   }

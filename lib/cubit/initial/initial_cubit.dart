@@ -1,3 +1,5 @@
+import 'package:debit72/models/claimant.dart';
+
 import '../../models/avto_list.dart';
 import '../../models/ip.dart';
 import '../../models/ip_detail.dart';
@@ -205,13 +207,19 @@ class InitialCubit extends Cubit<InitialState> {
 
     emit(JOWLoaded(loadedDataInfo: searchLOW));
   }
+
+  List<Claimant> fetchingClaimant;
+
+  Future<void> fetchClaimants() async {
+    RepositoryClaimantList repositoryClaimant = RepositoryClaimantList();
+    try {
+      emit(LoadingClaimant());
+      final List<Claimant> _loadedClaimant = await repositoryClaimant.getClaimantList().then((value) => fetchingClaimant = value);
+      emit(LoadedClaimant(loadedDataInfo: _loadedClaimant));
+    } catch (e) {
+      emit(ErrorClaimant());
+    }
+  }
 }
 
-// bool fetchDataFromIPList(AvtoList element, String searchData) {
-//   element.ipList.forEach((el) {
-//     if (el.claimant.toLowerCase().contains(searchData)) {
-//       return true;
-//     } else
-//       return false;
-//   });
-// }
+

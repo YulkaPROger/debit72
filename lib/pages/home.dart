@@ -65,12 +65,27 @@ class HomePage extends StatelessWidget {
             children: [
               ButtonMenu(
                 theme: theme,
+                textButton: "Взыскатели",
+                textPages: 'claimant',
+              ),
+              PreviousIcon(theme: theme, icons: MaterialCommunityIcons.account_group),
+              
+              
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              
+              PreviousIcon(theme: theme, icons: Ionicons.ios_search),
+              ButtonMenu(
+                theme: theme,
                 textButton: "Поиск авто\nreal-time",
                 textPages: 'search_avto_real_time',
               ),
-              PreviousIcon(theme: theme, icons: Ionicons.ios_search),
             ],
           ),
+          
           Previous(),
         ],
       )),

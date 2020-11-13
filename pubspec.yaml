@@ -39,6 +39,7 @@ dependencies:
   flutter_camera_ml_vision: ^2.3.0
   flutter_neumorphic: ^3.0.3
   path_provider: ^1.6.24
+  flutter_sms: ^2.1.1
 
 dev_dependencies:
   flutter_test:

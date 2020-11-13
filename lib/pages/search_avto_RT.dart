@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:camera/camera.dart';
 import 'package:debit72/models/avto_list.dart';
+import 'package:debit72/models/avto_list_ip.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -145,7 +146,6 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
   }
 
   Widget _buildImage(theme) {
-
     return Container(
       constraints: const BoxConstraints.expand(),
       child: _camera == null
@@ -168,7 +168,7 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Expanded(
-                      flex: isSearcing == false?9:4,
+                      flex: isSearcing == false ? 9 : 4,
                       child: Container(),
                     ),
                     Expanded(
@@ -179,9 +179,9 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
                               "$resultScan",
                               style: TextStyle(
                                   color: isSearcing == false
-                                      ? Colors.black
+                                      ? Theme.of(context).brightness == Brightness.dark? Colors.white :Colors.black
                                       : Colors.redAccent,
-                                  fontSize: 36),
+                                  fontSize: 30),
                             ))),
                     isSearcing == false
                         ? Container()
@@ -189,31 +189,75 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
                             flex: 4,
                             child: Container(
                               color: theme.buttonColor,
-                              child: ListTile(
-                                leading: Icon(
-                                  Icons.car_rental,
-                                  color: Colors.redAccent,
-                                ),
-                                title: Text(avtoListSearch[0].debitor),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                        "Арестовано: ${avtoListSearch[0].arestoredTS}"),
-                                    Text(
-                                        "ИП по которому арестовано: ${avtoListSearch[0].ipArested}"),
-                                    Text(
-                                        "Место хранения: ${avtoListSearch[0].storageLocation}"),
-                                    Text(
-                                        "Комментарий: ${avtoListSearch[0].commentCar}"),
-                                    Text(
-                                        "Cумма по оценке: ${avtoListSearch[0].ammountTS}"),
-                                    Text(
-                                        "Фонд: ул.${avtoListSearch[0].street}, дом ${avtoListSearch[0].house}, кв. ${avtoListSearch[0].apartment}"),
-                                    Text(
-                                        "ТС: ${avtoListSearch[0].debitorVehicles}"),
-                                  ],
-                                ),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    leading: Icon(
+                                      Icons.car_rental,
+                                      color: Colors.redAccent,
+                                    ),
+                                    title: Text(avtoListSearch[0].debitor),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            "ТС: ${avtoListSearch[0].debitorVehicles}"),
+                                        Text(
+                                            "Фонд: ул.${avtoListSearch[0].street}, дом ${avtoListSearch[0].house}, кв. ${avtoListSearch[0].apartment}"),
+                                        Text(
+                                            "ИП: ${avtoListSearch[0].ipList.length} штук"),
+                                        Text(
+                                            "На сумму: ${getTotalDebt(avtoListSearch[0].ipList)} руб."),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 80,
+                                    width: double.maxFinite,
+                                    padding: EdgeInsets.only(top: 8),
+                                    margin: EdgeInsets.only(right: 8),
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount:
+                                            avtoListSearch[0].ipList.length,
+                                        itemBuilder:
+                                            (BuildContext context, int i) {
+                                          return Stack(
+                                            children: [
+                                              Container(
+                                                width: 170,
+                                                padding:
+                                                    EdgeInsets.only(left: 16),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(avtoListSearch[0]
+                                                        .ipList[i]
+                                                        .claimant),
+                                                    Text(
+                                                        "Остаток: ${avtoListSearch[0].ipList[i].remainingDebt}"),
+                                                  ],
+                                                ),
+                                              ),
+                                              Container(
+                                                height: 80,
+                                                width: 10,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.redAccent,
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                            topLeft: Radius
+                                                                .circular(8),
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    8))),
+                                              ),
+                                            ],
+                                          );
+                                        }),
+                                  ),
+                                ],
                               ),
                             )),
                   ],
@@ -266,5 +310,20 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
 
     _currentDetector = null;
     super.dispose();
+  }
+
+  getTotalDebt(List<AvtoIPList> ip) {
+    double sum = 0.0;
+    for (var i = 0; i < ip.length; i++) {
+      try {
+        var num1 = double.parse(ip[i].remainingDebt);
+        sum = sum + num1;
+      } catch (e) {
+        print(e);
+      }
+    }
+    String sum1 = sum.toString();
+    var sum2 = double.parse(sum1).toStringAsFixed(2);
+    return sum2.toString();
   }
 }
