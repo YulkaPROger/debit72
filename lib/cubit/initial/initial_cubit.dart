@@ -110,9 +110,6 @@ class InitialCubit extends Cubit<InitialState> {
       final List<AvtoList> _loadedInfo = await repositoryAvto
           .getAvtoListJSON()
           .then((value) => fetchingAvtoList = value);
-      // print("## cubit ============ _loadedInfo");
-      // print(_loadedInfo);
-      // print(_loadedInfo.runtimeType);
       emit(AvtoLoaded(loadedDataInfo: _loadedInfo));
     } catch (e) {
       // print(e);
@@ -127,9 +124,6 @@ class InitialCubit extends Cubit<InitialState> {
       final List<AvtoList> _loadedInfo = await repositoryAvto
           .getAvtoList()
           .then((value) => fetchingAvtoList = value);
-      // print("## cubit ============ _loadedInfo");
-      // print(_loadedInfo);
-      // print(_loadedInfo.runtimeType);
       emit(AvtoLoaded(loadedDataInfo: _loadedInfo));
     } catch (e) {
       // print(e);

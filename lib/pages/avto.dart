@@ -22,7 +22,7 @@ class _AvtoState extends State<Avto> {
     var theme = Theme.of(context);
     final GlobalKey<ScaffoldState> _scaffoldKeyAvto =
         GlobalKey<ScaffoldState>();
-
+    
     return BlocProvider<InitialCubit>(
       create: (context) => InitialCubit(repository: repository),
       child: Scaffold(

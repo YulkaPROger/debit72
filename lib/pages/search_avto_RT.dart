@@ -1,12 +1,16 @@
 import 'dart:convert';
 
 import 'package:camera/camera.dart';
+import 'package:debit72/cubit/initial/initial_cubit.dart';
 import 'package:debit72/models/avto_list.dart';
 import 'package:debit72/models/avto_list_ip.dart';
+import 'package:debit72/models/provider.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import 'detector_painters.dart';
 import 'scaner_utils.dart';
@@ -35,6 +39,7 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
   void initState() {
     super.initState();
     _initializeCamera();
+
   }
 
   Future<List<AvtoList>> getAvtoList() async {
@@ -145,7 +150,8 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
     );
   }
 
-  Widget _buildImage(theme) {
+  Widget _buildImage(theme, provider) {
+
     return Container(
       constraints: const BoxConstraints.expand(),
       child: _camera == null
@@ -159,7 +165,7 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
               ),
             )
           : Stack(
-              fit: StackFit.expand,
+              //fit: StackFit.loose,
               children: <Widget>[
                 CameraPreview(_camera),
                 _buildResults(),
@@ -179,14 +185,17 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
                               "$resultScan",
                               style: TextStyle(
                                   color: isSearcing == false
-                                      ? Theme.of(context).brightness == Brightness.dark? Colors.white :Colors.black
+                                      ? Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black
                                       : Colors.redAccent,
                                   fontSize: 30),
                             ))),
                     isSearcing == false
                         ? Container()
                         : Expanded(
-                            flex: 4,
+                            flex: 5,
                             child: Container(
                               color: theme.buttonColor,
                               child: Column(
@@ -197,19 +206,28 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
                                       color: Colors.redAccent,
                                     ),
                                     title: Text(avtoListSearch[0].debitor),
-                                    subtitle: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                            "ТС: ${avtoListSearch[0].debitorVehicles}"),
-                                        Text(
-                                            "Фонд: ул.${avtoListSearch[0].street}, дом ${avtoListSearch[0].house}, кв. ${avtoListSearch[0].apartment}"),
-                                        Text(
-                                            "ИП: ${avtoListSearch[0].ipList.length} штук"),
-                                        Text(
-                                            "На сумму: ${getTotalDebt(avtoListSearch[0].ipList)} руб."),
-                                      ],
+                                    subtitle: InkWell(
+                                      onTap: () {
+                                        print("tap ========================================================================");
+                                        var nameDebitor = avtoListSearch[0].debitor;
+                                        provider.setNameDebitor(name: nameDebitor);
+                                        Navigator.pushNamed(context, 'avto');
+                                        
+                                      },
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              "ТС: ${avtoListSearch[0].debitorVehicles}"),
+                                          Text(
+                                              "Фонд: ул.${avtoListSearch[0].street}, дом ${avtoListSearch[0].house}, кв. ${avtoListSearch[0].apartment}"),
+                                          Text(
+                                              "ИП: ${avtoListSearch[0].ipList.length} штук"),
+                                          Text(
+                                              "На сумму: ${getTotalDebt(avtoListSearch[0].ipList)} руб."),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   Container(
@@ -225,19 +243,35 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
                                             (BuildContext context, int i) {
                                           return Stack(
                                             children: [
-                                              Container(
-                                                width: 170,
-                                                padding:
-                                                    EdgeInsets.only(left: 16),
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(avtoListSearch[0]
-                                                        .ipList[i]
-                                                        .claimant),
-                                                    Text(
-                                                        "Остаток: ${avtoListSearch[0].ipList[i].remainingDebt}"),
-                                                  ],
+                                              InkWell(
+                                                onTap: () {
+                                                  var ipDetail =
+                                                      avtoListSearch[0]
+                                                          .ipList[i]
+                                                          .numberIP
+                                                          .toString();
+                                                  provider.setNumID(
+                                                      numForSetNumID: ipDetail);
+                                                  print(ipDetail);
+                                                  Navigator.of(context)
+                                                      .pushNamed('ipDetail');
+                                                },
+                                                child: Container(
+                                                  width: 170,
+                                                  padding:
+                                                      EdgeInsets.only(left: 16),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(avtoListSearch[0]
+                                                          .ipList[i]
+                                                          .claimant),
+                                                      Text(
+                                                          "Остаток: ${avtoListSearch[0].ipList[i].remainingDebt}"),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                               Container(
@@ -287,11 +321,12 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    ProviderModel provider = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: theme.buttonColor,
       ),
-      body: _buildImage(theme),
+      body: _buildImage(theme, provider),
       floatingActionButton: FloatingActionButton(
         backgroundColor: theme.accentColor,
         onPressed: _toggleCameraDirection,

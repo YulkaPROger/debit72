@@ -75,22 +75,9 @@ class _ClaimantListState extends State<ClaimantList> {
                               iconSize: 30,
                               onPressed: () async {
                                 print("tap");
-                                String message = """
-                                Наименование ${state.loadedDataInfo[index].fullName},
-                                Директор ${state.loadedDataInfo[index].shef},
-                                Телефон: ${state.loadedDataInfo[index].phone},
-                                E-mail: ${state.loadedDataInfo[index].email},
-                                Адрес ${state.loadedDataInfo[index].adress},
-
-                                Банк: ${state.loadedDataInfo[index].bank},
-                                ИНН: ${state.loadedDataInfo[index].inn},
-                                КПП: ${state.loadedDataInfo[index].kpp},
-                                РС: ${state.loadedDataInfo[index].rs},
-                                КС: ${state.loadedDataInfo[index].ks},
-                                """;
-                                //String message = "This is a test message!";
+                                String message = "Наименование ${state.loadedDataInfo[index].fullName},\nДиректор ${state.loadedDataInfo[index].shef},\nТелефон: ${state.loadedDataInfo[index].phone},\nE-mail: ${state.loadedDataInfo[index].email},\nАдрес ${state.loadedDataInfo[index].adress},\nБанк: ${state.loadedDataInfo[index].bank},\nИНН: ${state.loadedDataInfo[index].inn},\nКПП: ${state.loadedDataInfo[index].kpp},\nРС: ${state.loadedDataInfo[index].rs},\nКС: ${state.loadedDataInfo[index].ks},\n";
                                 List<String> recipents = [
-                                  "1234567890"
+                                  ""
                                 ];
 
                                 _sendSMS(message, recipents);

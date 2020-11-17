@@ -77,6 +77,10 @@ PODS:
   - FirebaseMLVisionTextModel (0.21.0):
     - FirebaseMLVision (~> 0.21)
   - Flutter (1.0.0)
+  - flutter_sms (1.1.0):
+    - Flutter
+  - flutter_user_agent (1.2.2):
+    - Flutter
   - GoogleAPIClientForREST/Core (1.5.0):
     - GTMSessionFetcher (>= 1.1.7)
   - GoogleAPIClientForREST/Vision (1.5.0):
@@ -151,6 +155,8 @@ DEPENDENCIES:
   - Firebase/MLVisionTextModel
   - firebase_ml_vision (from `.symlinks/plugins/firebase_ml_vision/ios`)
   - Flutter (from `Flutter`)
+  - flutter_sms (from `.symlinks/plugins/flutter_sms/ios`)
+  - flutter_user_agent (from `.symlinks/plugins/flutter_user_agent/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
@@ -188,6 +194,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_ml_vision/ios"
   Flutter:
     :path: Flutter
+  flutter_sms:
+    :path: ".symlinks/plugins/flutter_sms/ios"
+  flutter_user_agent:
+    :path: ".symlinks/plugins/flutter_user_agent/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
   path_provider:
@@ -201,7 +211,7 @@ SPEC CHECKSUMS:
   camera: a0ca5080336f7af47b88436e5e26da3dee5568f0
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
-  firebase_ml_vision: c2f1777946937975249fb510bc546ab3139a553f
+  firebase_ml_vision: 2a31103bf58f5746b3af9486cd8e45d2021d3ade
   FirebaseAnalytics: 3bb096873ee0d7fa4b6c70f5e9166b6da413cc7f
   FirebaseCore: d3a978a3cfa3240bf7e4ba7d137fdf5b22b628ec
   FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
@@ -213,6 +223,8 @@ SPEC CHECKSUMS:
   FirebaseMLVisionLabelModel: c6922e607cf4549b14981c80bf0d69eb51a2b547
   FirebaseMLVisionTextModel: e9f3cba0f31022ae9dd3d246aff9849075cacd98
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_sms: 91ce41530f55c85d6524d82307a5d555844c086a
+  flutter_user_agent: 27c45d034dc31b80948d29998cea52cd3a7bf936
   GoogleAPIClientForREST: e152cbe478166145abeb22255d545a1faa86033c
   GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
   GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833

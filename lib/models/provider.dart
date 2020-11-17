@@ -9,4 +9,13 @@ class ProviderModel extends ChangeNotifier {
     _numID = numForSetNumID.replaceAll(RegExp(r"\s+\b|\b\s"), "");
     notifyListeners();
   }
+
+  String _nameDebitor = "";
+
+  String get nameDebitor => _nameDebitor;
+
+  setNameDebitor({String name}) {
+    _nameDebitor = name;
+    notifyListeners();
+  }
 }
