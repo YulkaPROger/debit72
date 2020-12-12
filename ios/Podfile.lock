@@ -163,7 +163,7 @@ DEPENDENCIES:
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -239,6 +239,6 @@ SPEC CHECKSUMS:
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
-PODFILE CHECKSUM: 4803130a430b378124132a8bd2eb7d1e23e2c726
+PODFILE CHECKSUM: 1feeb34080985065655c166645a8561b0903aecd
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.8.0

@@ -1,5 +1,4 @@
 import 'package:debit72/theme/settings.dart';
-import 'package:debit72/widgets/ip_detail/persent_indicator.dart';
 
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';

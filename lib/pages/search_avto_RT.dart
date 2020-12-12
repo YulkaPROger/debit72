@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:camera/camera.dart';
-import 'package:debit72/cubit/initial/initial_cubit.dart';
 import 'package:debit72/models/avto_list.dart';
 import 'package:debit72/models/avto_list_ip.dart';
 import 'package:debit72/models/provider.dart';
@@ -9,7 +8,6 @@ import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'detector_painters.dart';
@@ -48,7 +46,7 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
     final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
 
     final response = await http.get(
-        'http://109.194.162.125/debit/hs/debit72/avtoID?APIkey=$apiKey&StateNumber=$resultScan');
+        'http://109.194.162.125/debit72/hs/debit72/avtoID?APIkey=$apiKey&StateNumber=$resultScan');
     // print(response.body);
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
@@ -91,11 +89,11 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
         (dynamic results) {
           if (_currentDetector == null) return;
           setState(() {
-            String text = results.text;
+            // String text = results.text;
             for (TextBlock block in results.blocks) {
               final String text =
                   block.text.toUpperCase().replaceAll(RegExp(' +'), '');
-              print("block.text===========================$text");
+              //print("block.text===========================$text");
               // проверка на соответствие номеру
               try {
                 //RegExp exp = RegExp(r"^\w?(\d{3})(\w{2}(\d{2,3})?)?");

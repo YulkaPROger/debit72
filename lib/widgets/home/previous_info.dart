@@ -1,4 +1,4 @@
-import 'package:debit72/models/previous_info.dart';
+
 import 'package:debit72/services/category.dart';
 import 'package:debit72/widgets/home/pie_chart.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';

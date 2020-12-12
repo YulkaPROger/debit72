@@ -21,7 +21,7 @@ class Api {
     final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
 
     final response = await http.get(
-        'http://109.194.162.125/debit/hs/debit72/PreviousInfo?APIkey=$apiKey');
+        'http://109.194.162.125/debit72/hs/debit72/PreviousInfo?APIkey=$apiKey');
     print(response);
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
@@ -59,7 +59,7 @@ class Api {
     final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
 
     final response = await http
-        .get('http://109.194.162.125/debit/hs/debit72/IP?APIkey=$apiKey');
+        .get('http://109.194.162.125/debit72/hs/debit72/IP?APIkey=$apiKey');
     print(response);
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
@@ -103,7 +103,7 @@ class Api {
     final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
 
     final response = await http
-        .get('http://109.194.162.125/debit/hs/debit72/PostJSON?APIkey=$apiKey');
+        .get('http://109.194.162.125/debit72/hs/debit72/PostJSON?APIkey=$apiKey');
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
       String body = utf8.decode(response.bodyBytes);
@@ -130,7 +130,7 @@ class Api {
     int intID = int.parse(number);
 
     final response = await http.get(
-        'http://109.194.162.125/debit/hs/debit72/linkIP?APIkey=$apiKey&link=$intID');
+        'http://109.194.162.125/debit72/hs/debit72/linkIP?APIkey=$apiKey&link=$intID');
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
       String body = utf8.decode(response.bodyBytes);
@@ -169,7 +169,7 @@ class Api {
     final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
 
     final response = await http
-        .get('http://109.194.162.125/debit/hs/debit72/avtoAll?APIkey=$apiKey');
+        .get('http://109.194.162.125/debit72/hs/debit72/avtoAll?APIkey=$apiKey');
     // print(response.body);
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
@@ -195,7 +195,7 @@ class Api {
     final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
 
     final response = await http
-        .get('http://109.194.162.125/debit/hs/debit72/debitor?APIkey=$apiKey');
+        .get('http://109.194.162.125/debit72/hs/debit72/debitor?APIkey=$apiKey');
     print(response.body);
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
