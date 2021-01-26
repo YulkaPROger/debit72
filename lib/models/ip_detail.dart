@@ -38,6 +38,8 @@ class IPDetail {
   String dead;
   String ls;
   String adressFact;
+  String solidarity;
+  String solidarityFace;
   List<Avto> avto;
   List<Property> property;
   List<Busines> busines;
@@ -78,6 +80,8 @@ class IPDetail {
       this.dead,
       this.ls,
       this.adressFact,
+      this.solidarity,
+      this.solidarityFace,
       this.avto,
       this.property,
       this.busines,
@@ -142,6 +146,8 @@ class IPDetail {
         dead: jsonMap['Умер'],
         ls: jsonMap['ЛицевойСчет'],
         adressFact: jsonMap['ДолжникАдресФактический'],
+        solidarity: jsonMap['Солидарно'],
+        solidarityFace: jsonMap['СписокСолидарщиков'],
         avto: avtoList,
         property: propList,
         busines: businesList,

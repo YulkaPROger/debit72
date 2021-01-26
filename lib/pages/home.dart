@@ -2,13 +2,29 @@ import 'package:debit72/widgets/home/previous-button.dart';
 import 'package:debit72/widgets/home/previous_icon.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../pages/nav_bar.dart';
 import '../widgets/home/previous.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  
+
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+   @override
+  void initState() {
+    super.initState();
+    showDialogIfFirstLoaded(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -90,5 +106,59 @@ class HomePage extends StatelessWidget {
         ],
       )),
     );
+  }
+
+  showDialogIfFirstLoaded(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String apiKey = prefs.getString('APIkey')?? "APIkey dont find";
+    TextEditingController apiController = TextEditingController();
+    TextEditingController dataController = TextEditingController();
+    if (apiKey == "APIkey dont find") {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text("Пожалуйста, введите ваше ФИО и дату рождения"),
+            content: Column(
+              children: [
+                TextField(
+                    onChanged: (textSearch) {},
+                    controller: apiController,
+                    decoration: InputDecoration(
+                      hintText: "ФИО",
+                      prefixIcon: Icon(Icons.search),
+                      // border: OutlineInputBorder(
+                      //     borderRadius: BorderRadius.all(Radius.circular(25)))
+                    ),
+                  ),
+                  TextField(
+                    onChanged: (textSearch) {},
+                    controller: dataController,
+                    keyboardType: TextInputType.datetime,
+                    decoration: InputDecoration(
+                      hintText: "Дата рождения",
+                      prefixIcon: Icon(Icons.search),
+                      // border: OutlineInputBorder(
+                      //     borderRadius: BorderRadius.all(Radius.circular(25)))
+                    ),
+                  ),
+              ],
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Ok"),
+                onPressed: () async {
+                  await prefs.setString('APIkey', apiController.text);
+                  await prefs.setString('Birthday', dataController.text);
+
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

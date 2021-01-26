@@ -29,7 +29,12 @@ class InitialCubit extends Cubit<InitialState> {
       emit(IpLoaded(loadedData: _loadedIP));
     } catch (e) {
       print(e);
-      emit(IpError());
+      try{
+        fetchIP();
+      } catch (e){
+        emit(IpError());
+      }
+      
     }
   }
 
@@ -60,7 +65,8 @@ class InitialCubit extends Cubit<InitialState> {
           element.house.toLowerCase().contains(data) ||
           element.apartment.toLowerCase().contains(data) ||
           element.bailiff.toLowerCase().contains(data) ||
-          element.bailiffDepartment.toLowerCase().contains(data)) {
+          element.bailiffDepartment.toLowerCase().contains(data) ||
+          element.fullAdress.toLowerCase().contains(data)) {
         searchIP.add(element);
       }
     });
@@ -112,8 +118,13 @@ class InitialCubit extends Cubit<InitialState> {
           .then((value) => fetchingAvtoList = value);
       emit(AvtoLoaded(loadedDataInfo: _loadedInfo));
     } catch (e) {
+      try{
+        fetchAvtoList();
+      } catch(e){
+        emit(AvtoError());
+      }
       // print(e);
-      emit(AvtoError());
+      
     }
   }
 
@@ -161,7 +172,12 @@ class InitialCubit extends Cubit<InitialState> {
           .then((value) => fetchingJow = value);
       emit(JOWLoaded(loadedDataInfo: _loadedLOW));
     } catch (e) {
-      emit(JOWError());
+      try{
+        fetchJOWs();
+      } catch(e){
+        emit(JOWError());
+      }
+      
     }
   }
 

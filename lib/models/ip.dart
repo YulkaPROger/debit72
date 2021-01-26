@@ -13,6 +13,7 @@ class IP {
   String regNumberIP;
   String sumDebt;
   String remainderDebt;
+  String fullAdress;
 
   IP(
       {this.numberID,
@@ -27,7 +28,8 @@ class IP {
       this.link,
       this.regNumberIP,
       this.sumDebt,
-      this.remainderDebt});
+      this.remainderDebt,
+      this.fullAdress});
 
   factory IP.fromJson(Map<String, dynamic> json) {
     return IP(
@@ -43,7 +45,8 @@ class IP {
       link: json['Номер'],
       regNumberIP: json['РегНомерИП'],
       sumDebt: json['ОбщаяСуммаДолга'],
-      remainderDebt: json['ОстатокДолга']
+      remainderDebt: json['ОстатокДолга'],
+      fullAdress: json['ФондСПрРодитель'] +" "+ json['ФондСПр']+" "+ json['КвартираФонда']
       
     );
   }

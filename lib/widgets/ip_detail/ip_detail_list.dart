@@ -34,7 +34,13 @@ class _IPListDetailState extends State<IPListDetail> {
       builder: (context, state) {
         if (state is InitialIpDetail) {
           return Center(
-            child: Text("data not loaded"),
+            child: Text('''If you see this message, then you need to follow these steps:
+Step # 1 - return to the home screen and swipe to the right
+Step # 2 - in the input field at the top of the screen, replace the text API key not found with the text - test
+Step 3 - press the save button
+Step # 4 - restart the application.
+Step # 5 - click the refresh button at the bottom of this screen'''),
+          
           );
         }
 
@@ -159,6 +165,12 @@ class _IPListDetailState extends State<IPListDetail> {
                               Text(
                                 "Адрес факт: ${ip.adressFact}",
                               ),
+                              ip.solidarity != "" ? Text(
+                                "Солидарно: ${ip.solidarity}",
+                              ):Container(),
+                              ip.solidarityFace != "" ? Text(
+                                "Солидарно с: ${ip.solidarityFace}",
+                              ):Container(),
                             ],
                           ),
                           leading: Column(
@@ -433,7 +445,13 @@ class _IPListDetailState extends State<IPListDetail> {
 
         if (state is IpDetailError) {
           return Center(
-            child: Text("Error fetching IP"),
+            child: Text('''If you see this message, then you need to follow these steps:
+Step # 1 - return to the home screen and swipe to the right
+Step # 2 - in the input field at the top of the screen, replace the text API key not found with the text - test
+Step 3 - press the save button
+Step # 4 - restart the application.
+Step # 5 - click the refresh button at the bottom of this screen'''),
+          
           );
         }
         return Container();

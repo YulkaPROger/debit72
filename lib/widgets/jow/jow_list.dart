@@ -28,7 +28,13 @@ class _JOWListState extends State<JOWList> {
       builder: (context, state) {
         if (state is InitialJOW) {
           return Center(
-            child: Text("Данные не загружены"),
+            child: Text('''If you see this message, then you need to follow these steps:
+Step # 1 - return to the home screen and swipe to the right
+Step # 2 - in the input field at the top of the screen, replace the text API key not found with the text - test
+Step 3 - press the save button
+Step # 4 - restart the application.
+Step # 5 - click the refresh button at the bottom of this screen'''),
+          
           );
         }
 
@@ -89,7 +95,13 @@ class _JOWListState extends State<JOWList> {
 
         if (state is JOWError) {
           return Center(
-            child: Text("Error fetching JOW"),
+            child: Text('''If you see this message, then you need to follow these steps:
+Step # 1 - return to the home screen and swipe to the right
+Step # 2 - in the input field at the top of the screen, replace the text API key not found with the text - test
+Step 3 - press the save button
+Step # 4 - restart the application.
+Step # 5 - click the refresh button at the bottom of this screen'''),
+          
           );
         }
         return null;

@@ -34,7 +34,12 @@ class _AvtoListState extends State<AvtoList> {
       builder: (context, state) {
         if (state is InitialAvto) {
           return Center(
-            child: Text("Данные не загружены"),
+            child: Text('''If you see this message, then you need to follow these steps:
+Step # 1 - return to the home screen and swipe to the right
+Step # 2 - in the input field at the top of the screen, replace the text API key not found with the text - test
+Step 3 - press the save button
+Step # 4 - restart the application.
+Step # 5 - click the refresh button at the bottom of this screen'''),
           );
         }
 
@@ -194,7 +199,7 @@ class _AvtoListState extends State<AvtoList> {
                                       ),
                                     ),
                                   ),
-                                  Container(
+                                  ip.remainingDebt=="0.00" || ip.amountDebt=="0.00"?Container():Container(
                                     height: 152,
                                     width: 10,
                                     decoration: BoxDecoration(
@@ -203,7 +208,7 @@ class _AvtoListState extends State<AvtoList> {
                                             topLeft: Radius.circular(8),
                                             bottomLeft: Radius.circular(8))),
                                   ),
-                                  Positioned(
+                                  ip.remainingDebt=="0.00" || ip.amountDebt=="0.00"?Container():Positioned(
                                     bottom: 10.0,
                                     right: 5.0,
                                     child: CustomPaint(
@@ -251,7 +256,12 @@ class _AvtoListState extends State<AvtoList> {
 
         if (state is AvtoError) {
           return Center(
-            child: Text("Error fetching IP"),
+            child: Text('''If you see this message, then you need to follow these steps:
+Step # 1 - return to the home screen and swipe to the right
+Step # 2 - in the input field at the top of the screen, replace the text API key not found with the text - test
+Step 3 - press the save button
+Step # 4 - restart the application.
+Step # 5 - click the refresh button at the bottom of this screen'''),
           );
         }
         return null;

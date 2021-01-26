@@ -37,7 +37,6 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
   void initState() {
     super.initState();
     _initializeCamera();
-
   }
 
   Future<List<AvtoList>> getAvtoList() async {
@@ -150,8 +149,8 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
 
   Widget _buildImage(theme, provider) {
 
+
     return Container(
-      constraints: const BoxConstraints.expand(),
       child: _camera == null
           ? const Center(
               child: Text(
@@ -163,9 +162,11 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
               ),
             )
           : Stack(
-              //fit: StackFit.loose,
+              fit: StackFit.loose,
               children: <Widget>[
-                CameraPreview(_camera),
+                AspectRatio(aspectRatio: 12/16,
+                child: CameraPreview(_camera)
+                ),
                 _buildResults(),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -210,7 +211,7 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
                                         var nameDebitor = avtoListSearch[0].debitor;
                                         provider.setNameDebitor(name: nameDebitor);
                                         Navigator.pushNamed(context, 'avto');
-                                        
+
                                       },
                                       child: Column(
                                         crossAxisAlignment:
@@ -325,13 +326,13 @@ class _CameraPreviewScannerState extends State<CameraPreviewScanner> {
         backgroundColor: theme.buttonColor,
       ),
       body: _buildImage(theme, provider),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: theme.accentColor,
-        onPressed: _toggleCameraDirection,
-        child: _direction == CameraLensDirection.back
-            ? const Icon(Icons.camera_front)
-            : const Icon(Icons.camera_rear),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: theme.accentColor,
+      //   onPressed: _toggleCameraDirection,
+      //   child: _direction == CameraLensDirection.back
+      //       ? const Icon(Icons.camera_front)
+      //       : const Icon(Icons.camera_rear),
+      // ),
     );
   }
 

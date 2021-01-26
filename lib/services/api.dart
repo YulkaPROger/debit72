@@ -19,6 +19,7 @@ class Api {
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
     final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
+    
 
     final response = await http.get(
         'http://109.194.162.125/debit72/hs/debit72/PreviousInfo?APIkey=$apiKey');
@@ -57,9 +58,10 @@ class Api {
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
     final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
-
+    String birthday = prefs.getString('Birthday') ?? "Birthday dont find";
+    birthday = birthday + " 00:00:00";
     final response = await http
-        .get('http://109.194.162.125/debit72/hs/debit72/IP?APIkey=$apiKey');
+        .get('http://109.194.162.125/debit72/hs/debit72/IP?APIkey=$apiKey&Birthday=$birthday');
     print(response);
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
@@ -101,9 +103,11 @@ class Api {
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
     final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
+    String birthday = prefs.getString('Birthday') ?? "Birthday dont find";
+    birthday = birthday + " 00:00:00";
 
     final response = await http
-        .get('http://109.194.162.125/debit72/hs/debit72/PostJSON?APIkey=$apiKey');
+        .get('http://109.194.162.125/debit72/hs/debit72/PostJSON?APIkey=$apiKey&Birthday=$birthday');
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
       String body = utf8.decode(response.bodyBytes);
@@ -168,8 +172,11 @@ class Api {
     final SharedPreferences prefs = await _prefs;
     final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
 
+    String birthday = prefs.getString('Birthday') ?? "Birthday dont find";
+    birthday = birthday + " 00:00:00";
+
     final response = await http
-        .get('http://109.194.162.125/debit72/hs/debit72/avtoAll?APIkey=$apiKey');
+        .get('http://109.194.162.125/debit72/hs/debit72/avtoAll?APIkey=$apiKey&Birthday=$birthday');
     // print(response.body);
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули
@@ -193,9 +200,11 @@ class Api {
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
     final String apiKey = prefs.getString('APIkey') ?? "APIkey dont find";
+    String birthday = prefs.getString('Birthday') ?? "Birthday dont find";
+    birthday = birthday + " 00:00:00";
 
     final response = await http
-        .get('http://109.194.162.125/debit72/hs/debit72/debitor?APIkey=$apiKey');
+        .get('http://109.194.162.125/debit72/hs/debit72/debitor?APIkey=$apiKey&Birthday=$birthday');
     print(response.body);
     if (response.statusCode == 200) {
       //декодировать в UTF-8 иначе приходят каракули

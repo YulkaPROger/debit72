@@ -32,7 +32,13 @@ class _IPListState extends State<IPList> {
       builder: (context, state) {
         if (state is InitialInitial) {
           return Center(
-            child: Text("data not loaded"),
+            child: Text('''If you see this message, then you need to follow these steps:
+Step # 1 - return to the home screen and swipe to the right
+Step # 2 - in the input field at the top of the screen, replace the text API key not found with the text - test
+Step 3 - press the save button
+Step # 4 - restart the application.
+Step # 5 - click the refresh button at the bottom of this screen'''),
+          
           );
         }
 
@@ -150,7 +156,13 @@ class _IPListState extends State<IPList> {
 
         if (state is IpError) {
           return Center(
-            child: Text("Error fetching IP"),
+            child: Text('''If you see this message, then you need to follow these steps:
+Step # 1 - return to the home screen and swipe to the right
+Step # 2 - in the input field at the top of the screen, replace the text API key not found with the text - test
+Step 3 - press the save button
+Step # 4 - restart the application.
+Step # 5 - click the refresh button at the bottom of this screen'''),
+          
           );
         }
         return null;

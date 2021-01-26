@@ -35,7 +35,8 @@ class _PreviousInfoState extends State<PreviousInfo> {
       builder: (context, state) {
         if (state is InitialInfo) {
           return Center(
-            child: Text("data not loaded"),
+            child: Text(""),
+          
           );
         }
 
@@ -172,7 +173,8 @@ class _PreviousInfoState extends State<PreviousInfo> {
 
         if (state is InfoError) {
           return Center(
-            child: Text("Ошибка получения данных"),
+            child: Text(""),
+          
           );
         }
         return Container();
