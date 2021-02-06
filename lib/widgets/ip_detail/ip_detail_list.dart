@@ -1,4 +1,8 @@
+import 'package:debit72/models/ip_detail.dart';
 import 'package:debit72/theme/settings.dart';
+import 'package:debit72/widgets/ip_detail/build_employers.dart';
+import 'package:debit72/widgets/ip_detail/build_property.dart';
+import 'package:debit72/widgets/ip_detail/build_setlements_account.dart';
 import 'package:debit72/widgets/ip_detail/persent_indicator.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+import 'build_avto.dart';
+import 'build_business.dart';
 
 class IPListDetail extends StatefulWidget {
   final String id;
@@ -126,6 +133,12 @@ Step # 5 - click the refresh button at the bottom of this screen'''),
                           text2: _dateFromData(ip.completionDateIP),
                           text3: _monthAndYearFromData(ip.completionDateIP),
                         ),
+                        InfoWidget(
+                          text1: ip.amountSzhku,
+                          text2: ip.amountDuty,
+                          text3: ip.amountPenalties,
+                          text4: ip.amountJudicalServises,
+                        )
                         
                       ],
                     ),
@@ -165,10 +178,10 @@ Step # 5 - click the refresh button at the bottom of this screen'''),
                               Text(
                                 "Адрес факт: ${ip.adressFact}",
                               ),
-                              ip.solidarity != "" ? Text(
+                              ip.solidarity != "Нет" ? Text(
                                 "Солидарно: ${ip.solidarity}",
                               ):Container(),
-                              ip.solidarityFace != "" ? Text(
+                              ip.solidarityFace != null ? Text(
                                 "Солидарно с: ${ip.solidarityFace}",
                               ):Container(),
                             ],
@@ -183,7 +196,7 @@ Step # 5 - click the refresh button at the bottom of this screen'''),
                                 ip.dead == "Нет"
                                     ? Icons.check_circle
                                     : Foundation.skull,
-                                color: ip.debitorPensioner == "Нет"
+                                color: ip.dead == "Нет"
                                     ? theme.accentColor
                                     : Colors.redAccent[400],
                               ),
@@ -207,233 +220,11 @@ Step # 5 - click the refresh button at the bottom of this screen'''),
                             ],
                           ),
                         ),
-                        Container(
-                            height: ip.avto.length > 0 ? 150 : 0,
-                            child: ip.avto.length > 0
-                                ? ListView.builder(
-                                    itemCount: ip.avto.length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      return Neumorphic(
-                                        style: NeumorphicStyle(
-                                            shape: NeumorphicShape.concave,
-                                            lightSource:
-                                                Provider.of<Settings>(context)
-                                                        .isDarkMode
-                                                    ? LightSource.bottomRight
-                                                    : LightSource.topLeft,
-                                            depth: 2,
-                                            color: theme.buttonColor),
-                                        margin: const EdgeInsets.all(8),
-                                        child: Container(
-                                          width: 300,
-                                          child: ListTile(
-                                            leading: Icon(Ionicons.ios_car,
-                                                color: ip.avto[index].arrested=="false"?theme.accentColor: Colors.redAccent),
-                                            title: Text(
-                                              "${ip.avto[index].avto}",
-                                            ),
-                                            subtitle: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Модель: ${ip.avto[index].model}",
-                                                ),
-                                                Text(
-                                                  "Гос. номер: ${ip.avto[index].stateNumber}",
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    })
-                                : Container()),
-                        Container(
-                            height: ip.setlementsAccounts.length > 0 ? 100 : 0,
-                            child: ip.setlementsAccounts.length > 0
-                                ? ListView.builder(
-                                    itemCount: ip.setlementsAccounts.length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      return Container(
-                                        margin: const EdgeInsets.all(8),
-                                        child: Neumorphic(
-                                          style: NeumorphicStyle(
-                                              shape: NeumorphicShape.concave,
-                                              lightSource:
-                                                  Provider.of<Settings>(context)
-                                                          .isDarkMode
-                                                      ? LightSource.bottomRight
-                                                      : LightSource.topLeft,
-                                              depth: 2,
-                                              color: theme.buttonColor),
-                                          child: Container(
-                                            width: 300,
-                                            child: ListTile(
-                                              leading: Icon(Entypo.credit_card,
-                                                  color: theme.accentColor),
-                                              title: Text(
-                                                "${ip.setlementsAccounts[index].number}",
-                                              ),
-                                              subtitle: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text(
-                                                    "Тип счета: ${ip.setlementsAccounts[index].accountType}",
-                                                  ),
-                                                  Text(
-                                                    "БАНК: ${ip.setlementsAccounts[index].bank}",
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    })
-                                : Container()),
-                        Container(
-                            height: ip.property.length > 0 ? 250 : 0,
-                            child: ip.property.length > 0
-                                ? ListView.builder(
-                                    itemCount: ip.property.length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      return Neumorphic(
-                                        style: NeumorphicStyle(
-                                            shape: NeumorphicShape.concave,
-                                            lightSource:
-                                                Provider.of<Settings>(context)
-                                                        .isDarkMode
-                                                    ? LightSource.bottomRight
-                                                    : LightSource.topLeft,
-                                            depth: 2,
-                                            color: theme.buttonColor),
-                                        margin: const EdgeInsets.all(8),
-                                        child: Container(
-                                          width: 300,
-                                          child: ListTile(
-                                            leading: Icon(
-                                              Ionicons.ios_home,
-                                              color: ip.property[index].arrested=="false"? theme.accentColor:Colors.redAccent,
-                                            ),
-                                            title: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    "${ip.property[index].propertyClaimant}",
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    })
-                                : Container()),
-                        Container(
-                            height: ip.busines.length > 0 ? 300 : 0,
-                            child: ip.busines.length > 0
-                                ? ListView.builder(
-                                    itemCount: ip.busines.length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      return Neumorphic(
-                                        style: NeumorphicStyle(
-                                            shape: NeumorphicShape.concave,
-                                            lightSource:
-                                                Provider.of<Settings>(context)
-                                                        .isDarkMode
-                                                    ? LightSource.bottomRight
-                                                    : LightSource.topLeft,
-                                            depth: 2,
-                                            color: theme.buttonColor),
-                                        margin: const EdgeInsets.all(8),
-                                        child: Container(
-                                          width: 300,
-                                          child: ListTile(
-                                            leading: Icon(
-                                              Ionicons.ios_business,
-                                              color: theme.accentColor,
-                                            ),
-                                            title: Text(
-                                              "Наименование: ${ip.busines[index].propertyBusines}",
-                                            ),
-                                            subtitle: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  "Адрес: ${ip.busines[index].adresBusines}",
-                                                ),
-                                                Text(
-                                                  "ИНН: ${ip.busines[index].inn}",
-                                                ),
-                                                Text(
-                                                  "ОГРН: ${ip.busines[index].ogrn}",
-                                                ),
-                                                Text(
-                                                  "Размер доли: ${ip.busines[index].sizeShare}",
-                                                ),
-                                                Text(
-                                                  "Стоимость доли: ${ip.busines[index].valueShare}",
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    })
-                                : Container()),
-                        Container(
-                            height: ip.employer.length > 0 ? 200 : 0,
-                            child: ip.employer.length > 0
-                                ? ListView.builder(
-                                    itemCount: ip.employer.length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      return Neumorphic(
-                                        style: NeumorphicStyle(
-                                            shape: NeumorphicShape.concave,
-                                            lightSource:
-                                                Provider.of<Settings>(context)
-                                                        .isDarkMode
-                                                    ? LightSource.bottomRight
-                                                    : LightSource.topLeft,
-                                            depth: 2,
-                                            color: theme.buttonColor),
-                                        margin: const EdgeInsets.all(8),
-                                        child: Container(
-                                          width: 300,
-                                          child: ListTile(
-                                            leading: Icon(MaterialIcons.work,
-                                                color: ip.employer[index].foreclosure=="false"?theme.accentColor:Colors.redAccent),
-                                            title: Text(
-                                              "Наименование: ${ip.employer[index].employerName}",
-                                            ),
-                                            subtitle: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Адрес: ${ip.employer[index].employerAdres}",
-                                                ),
-                                                Text(
-                                                  "Дата актуальности: ${ip.employer[index].dateRelevanceInfo}",
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    })
-                                : Container()),
+                        BuildAvtoWidget(ip: ip, theme: theme),
+                        BuildSetlementsAccount(ip: ip, theme: theme),
+                        BuildProperty(ip: ip, theme: theme),
+                        BuildBusines(ip: ip, theme: theme),
+                        BuildEmployers(ip: ip, theme: theme),
                       ],
                     ),
                   ),
@@ -606,6 +397,58 @@ class DateWidget extends StatelessWidget {
           Text(
             text3,
             style: TextStyle(fontSize: 20),
+          ),
+        ],
+      ),
+      onPressed: () {},
+    );
+  }
+}
+class InfoWidget extends StatelessWidget {
+  final text1;
+  final text2;
+  final text3;
+  final text4;
+  final icon;
+  const InfoWidget({
+    Key key,
+    this.text1,
+    this.text2,
+    this.text3,
+    this.text4,
+    this.icon,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    return NeumorphicButton(
+      style: NeumorphicStyle(
+          shape: NeumorphicShape.concave,
+          lightSource: Provider.of<Settings>(context).isDarkMode
+              ? LightSource.bottomRight
+              : LightSource.topLeft,
+          depth: 2,
+          color: theme.buttonColor),
+      margin: EdgeInsets.only(
+        left: 2,
+        right: 5,
+        top: 5,
+        bottom: 5,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Взыскания по ИД"),
+          Text("Сумма ЖКУ: $text1"),
+          Text(
+            "Сумма пошлины: $text2",
+          ),
+          Text(
+            "Сумма пени: $text3"
+          ),
+          Text(
+            "Сумма юр.услуг: $text4"
           ),
         ],
       ),

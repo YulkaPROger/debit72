@@ -10,10 +10,15 @@ class PersentIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double maxPersent = 1.00;
+    double minPersent = -1.00;
     var theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 2.0, right: 8.0),
-      child: NeumorphicProgress(
+      child: (percent > maxPersent) || (percent < minPersent)
+      ?Container(
+      )
+      :NeumorphicProgress(
         duration: Duration(microseconds: 1500),
         height: 12,
         style: ProgressStyle(

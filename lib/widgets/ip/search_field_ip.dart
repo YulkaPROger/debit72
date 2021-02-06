@@ -39,24 +39,5 @@ class SearchFieldIP extends StatelessWidget {
         ),
       ),
     ]);
-    // return Column(
-    //   children: [
-    //     TextField(
-    //       onChanged: (textSearch) {
-    //         //отправить евент, в jowCubit
-    //         ipCubit.searchListIP(searchData: textSearch.toString());
-    //       },
-    //       controller: searchController,
-    //       decoration: InputDecoration(
-    //         hintText: "Поиск",
-    //         prefixIcon: Icon(Icons.search),
-    //         // border: OutlineInputBorder(
-    //         //     borderRadius: BorderRadius.all(Radius.circular(25)))
-    //       ),
-    //     ),
-
-    //     //SearchItem(),
-    //   ],
-    // );
   }
 }

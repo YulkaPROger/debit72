@@ -39,6 +39,10 @@ class IPDetail {
   String ls;
   String adressFact;
   String solidarity;
+  String amountSzhku;
+  String amountPenalties;
+  String amountDuty;
+  String amountJudicalServises;
   String solidarityFace;
   List<Avto> avto;
   List<Property> property;
@@ -81,6 +85,10 @@ class IPDetail {
       this.ls,
       this.adressFact,
       this.solidarity,
+      this.amountSzhku,
+      this.amountPenalties,
+      this.amountDuty,
+      this.amountJudicalServises,
       this.solidarityFace,
       this.avto,
       this.property,
@@ -147,6 +155,10 @@ class IPDetail {
         ls: jsonMap['ЛицевойСчет'],
         adressFact: jsonMap['ДолжникАдресФактический'],
         solidarity: jsonMap['Солидарно'],
+        amountSzhku: jsonMap['ЖКУ'],
+        amountPenalties: jsonMap['Пени'],
+        amountDuty: jsonMap['Пошлина'],
+        amountJudicalServises: jsonMap['ЮрУслуги'],
         solidarityFace: jsonMap['СписокСолидарщиков'],
         avto: avtoList,
         property: propList,

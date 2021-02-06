@@ -157,7 +157,7 @@ class _PreviousInfoState extends State<PreviousInfo> {
                                     ],
                                   ),
                                   child: Center(
-                                    child: Text('${info.quantity}'),
+                                    child: Text('${(info.quantity).round()}'),
                                   ),
                                 ),
                               ),
